@@ -4,12 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-ECSlidingViewController.xcscheme</key>
+		<key>Pods-AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-JSONKit.xcscheme</key>
+		<key>Pods-ECSlidingViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>11B82FAA33B94738A9662C83</key>
+		<key>4B10E86C4C564877A64BF4A2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>43E86682B128423FA082711C</key>
+		<key>4C3B4F9B50EE42C685EB8A39</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>953C5A8EA8214B249E6262F5</key>
+		<key>A74D433532994534936504A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E28128F95E4C42CCB65A0841</key>
+		<key>EE205E4F97F8499D97756E6B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

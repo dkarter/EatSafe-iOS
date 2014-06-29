@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "Models/RestaurantModel.h"
+#import "AFNetworking.h"
 
-@interface SearchViewController : UIViewController <UISearchBarDelegate>
-
+@interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) NSArray *searchResults;
+@property (weak, nonatomic) IBOutlet UITableView *searchResultsTableView;
 @end
