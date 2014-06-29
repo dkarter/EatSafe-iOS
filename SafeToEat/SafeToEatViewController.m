@@ -49,6 +49,10 @@
     manager = [[CLLocationManager alloc] init];
     geocoder = [[CLGeocoder alloc] init];
 
+    manager.delegate = self;
+    manager.desiredAccuracy = kCLLocationAccuracyBest;
+    [manager startUpdatingLocation];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,12 +79,13 @@
     NSLog(@"Failed to get location :(");
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+- (void)locationManager:(CLLocationManager *)locManager didUpdateLocations:(NSArray *)locations {
     currentLocation = locations[0];
     if (currentLocation) {
         NSLog(@"%@",[NSString stringWithFormat:@"Latitude: %f", currentLocation.coordinate.latitude]);
         NSLog(@"%@",[NSString stringWithFormat:@"Longitude: %f", currentLocation.coordinate.longitude]);
-
+        [locManager stopUpdatingLocation];
+        
         [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
             if (!error && [placemarks count] > 0) {
 //                placemark = placemarks.lastObject;
@@ -104,49 +109,9 @@
     
 }
 
-
-//- (IBAction)getHealthInspections:(id)sender {
-////    NSString *kHealthInspectionsURL = @"https://data.cityofchicago.org/resource/cnfp-tsxc.json?$where=within_circle(location, %f, %f, %d)";
-////
-////    NSString *urlString = [NSString stringWithFormat:kHealthInspectionsURL,
-////                           currentLocation.coordinate.latitude,
-////                           currentLocation.coordinate.longitude,
-////                           150];
-////    
-////    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-////    NSURL *url = [[NSURL alloc] initWithString:urlString];
-////    
-////    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
-////    [urlRequest addValue:@"Qt9CMe5t8uUx6rHu0PRCRhmTq" forHTTPHeaderField:@"X-App-Token"];
-////
-////    [NSURLConnection sendAsynchronousRequest:urlRequest
-////                                       queue:[[NSOperationQueue alloc] init]
-////                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-////                               if (!connectionError) {
-////                                   NSError *localError = nil;
-////                                   self.currentLocationHealthInspectionsData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&localError];
-////                                   
-////                                   if (!localError) {
-////                                       //NSLog(@"%@", parsedObject);
-////                                       UIStoryboard *storyboard = self.navigationController.storyboard;
-////                                       PlacesViewController *pvc = [storyboard instantiateViewControllerWithIdentifier:@"PlacesView"];
-////                                       pvc.healthInspectionData = self.currentLocationHealthInspectionsData;
-////
-////                                       [self.navigationController pushViewController:pvc animated:YES];
-////                                   } else {
-////                                       NSLog(@"Parse Error: %@", localError);
-////                                   }
-////                                   
-////                               } else {
-////                                   NSLog(@"Error: %@", connectionError.debugDescription);
-////                               }
-////
-////    }];
-//}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     SearchViewController *svc = (SearchViewController *)segue.destinationViewController;
-    
+    svc.location = [[CLLocation alloc] initWithLatitude:41.888477 longitude:-87.635332]; //currentLocation;
     svc.focusSearch = [segue.identifier isEqualToString:@"SearchSegue"];
     
 }

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B7A9C6C01918A4D500777A79 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A9C6BF1918A4D500777A79 /* Logo.png */; };
-		B7B0B9E918C592FC00625F52 /* PlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B0B9E818C592FC00625F52 /* PlacesViewController.m */; };
 		B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCE8195F716C00126C4C /* SearchViewController.m */; };
 		B7C3CCED195FA81500126C4C /* RestaurantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCEC195FA81500126C4C /* RestaurantModel.m */; };
 		B7C3CCF1195FFE3200126C4C /* RestaurantTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */; };
@@ -43,8 +42,6 @@
 /* Begin PBXFileReference section */
 		018F2BFE6CAD4E24A7A1C689 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7A9C6BF1918A4D500777A79 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
-		B7B0B9E718C592FC00625F52 /* PlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacesViewController.h; sourceTree = "<group>"; };
-		B7B0B9E818C592FC00625F52 /* PlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacesViewController.m; sourceTree = "<group>"; };
 		B7C3CCE7195F716C00126C4C /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		B7C3CCE8195F716C00126C4C /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		B7C3CCEA195FA15100126C4C /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
@@ -153,8 +150,6 @@
 				B7E020D218C506260016C912 /* Main.storyboard */,
 				B7E020D518C506260016C912 /* SafeToEatViewController.h */,
 				B7E020D618C506260016C912 /* SafeToEatViewController.m */,
-				B7B0B9E718C592FC00625F52 /* PlacesViewController.h */,
-				B7B0B9E818C592FC00625F52 /* PlacesViewController.m */,
 				B7C3CCE7195F716C00126C4C /* SearchViewController.h */,
 				B7C3CCE8195F716C00126C4C /* SearchViewController.m */,
 				B7C3CCEF195FFE3200126C4C /* RestaurantTableViewController.h */,
@@ -332,7 +327,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7B0B9E918C592FC00625F52 /* PlacesViewController.m in Sources */,
 				B7E020CD18C506260016C912 /* main.m in Sources */,
 				B7C3CCED195FA81500126C4C /* RestaurantModel.m in Sources */,
 				B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */,

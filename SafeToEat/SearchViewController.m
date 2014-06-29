@@ -22,11 +22,18 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+ //   static NSString *CellIdentifier = @"Cell";
+ //   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+ //
+ //   if (!cell) {
+ //       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+ //   }
+    //set cell type
+    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    if(cell == nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
     UILabel *titleLabel = (UILabel *)[cell.contentView viewWithTag:10];
@@ -41,7 +48,6 @@
     NSURL *urlRestaurantImage = [NSURL URLWithString:self.searchResults[indexPath.row][@"pic"]];
     NSURLRequest *requestRestaurantImage = [NSURLRequest requestWithURL:urlRestaurantImage];
 
-    
     __weak UIImageView *weakImage = restaurantImage;
     
     [restaurantImage setImageWithURLRequest:requestRestaurantImage
@@ -73,8 +79,8 @@
     
     distanceLabel.text = [NSString stringWithFormat:@"%@ miles", self.searchResults[indexPath.row][@"dist"]];
     
-    
     [ratingLabel setBackgroundColor:[self.gradeColorDictionary objectForKey:self.searchResults[indexPath.row][@"rating"]]];
+
     return cell;
 }
 
@@ -100,7 +106,7 @@
           @"B": [UIColor colorWithRed:171.0f/baseColor green:219.0f/baseColor blue:69.0f/baseColor alpha:1],
           @"C": [UIColor colorWithRed:245.0f/baseColor green:168.0f/baseColor blue:77.0f/baseColor alpha:1],
           @"F": [UIColor colorWithRed:237.0f/baseColor green:28.0f/baseColor blue:36.0f/baseColor alpha:1]};
-    [self getRestaurantsByLongitude:-87.625916 latitude:41.903196];
+    [self getRestaurantsByLongitude:self.location.coordinate.longitude latitude:self.location.coordinate.latitude];
     // Do any additional setup after loading the view.
     
 }
@@ -111,31 +117,46 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([segue.identifier isEqualToString:@"RestaurantPageSegue"]) {
+//        //get the details for the specific restaurant and pass to dest view controller
+//        RestaurantTableViewController *rtvc = [segue destinationViewController];
+//        
+//        //rtvc.restaurantData =
+//    }
+//    // Get the new view controller using [segue destinationViewController].
+//    // Pass the selected object to the new view controller.
+//    
+//}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.searchBar resignFirstResponder];
-    RestaurantTableViewController *rtvc = [[RestaurantTableViewController alloc] init];
+
+    RestaurantTableViewController *rtvc = [self.storyboard instantiateViewControllerWithIdentifier:@"restaurantTableView"];
+    rtvc.restaurantNameString = self.searchResults[indexPath.row][@"name"];
+    rtvc.restaurantAddressString = self.searchResults[indexPath.row][@"address"];
+    rtvc.location = self.location;
+    
     [self.navigationController pushViewController:rtvc animated:YES];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
-    //do search here
-    [self getRestaurantsByString:searchBar.text longitude:-87.625916 latitude:41.903196];
+
+    [self getRestaurantsByString:searchBar.text
+                       longitude:self.location.coordinate.longitude
+                        latitude:self.location.coordinate.latitude];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    [self getRestaurantsByString:searchBar.text longitude:-87.625916 latitude:41.903196];
+    [self getRestaurantsByString:searchBar.text
+                       longitude:self.location.coordinate.longitude
+                        latitude:self.location.coordinate.latitude];
 }
 
 - (void) getRestaurantsByLongitude: (float)longitude latitude:(float) latitude {
