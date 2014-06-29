@@ -11,6 +11,7 @@
 		B7B0B9E918C592FC00625F52 /* PlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B0B9E818C592FC00625F52 /* PlacesViewController.m */; };
 		B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCE8195F716C00126C4C /* SearchViewController.m */; };
 		B7C3CCED195FA81500126C4C /* RestaurantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCEC195FA81500126C4C /* RestaurantModel.m */; };
+		B7C3CCF1195FFE3200126C4C /* RestaurantTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */; };
 		B7E020C118C506260016C912 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C018C506260016C912 /* Foundation.framework */; };
 		B7E020C318C506260016C912 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C218C506260016C912 /* CoreGraphics.framework */; };
 		B7E020C518C506260016C912 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C418C506260016C912 /* UIKit.framework */; };
@@ -49,6 +50,8 @@
 		B7C3CCEA195FA15100126C4C /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		B7C3CCEB195FA81500126C4C /* RestaurantModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestaurantModel.h; path = SafeToEat/Models/RestaurantModel.h; sourceTree = "<group>"; };
 		B7C3CCEC195FA81500126C4C /* RestaurantModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestaurantModel.m; path = SafeToEat/Models/RestaurantModel.m; sourceTree = "<group>"; };
+		B7C3CCEF195FFE3200126C4C /* RestaurantTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantTableViewController.h; sourceTree = "<group>"; };
+		B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantTableViewController.m; sourceTree = "<group>"; };
 		B7E020BD18C506260016C912 /* SafeToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeToEat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E020C018C506260016C912 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B7E020C218C506260016C912 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -154,6 +157,8 @@
 				B7B0B9E818C592FC00625F52 /* PlacesViewController.m */,
 				B7C3CCE7195F716C00126C4C /* SearchViewController.h */,
 				B7C3CCE8195F716C00126C4C /* SearchViewController.m */,
+				B7C3CCEF195FFE3200126C4C /* RestaurantTableViewController.h */,
+				B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */,
 				B7E020D818C506260016C912 /* Images.xcassets */,
 				B7E020C718C506260016C912 /* Supporting Files */,
 			);
@@ -332,6 +337,7 @@
 				B7C3CCED195FA81500126C4C /* RestaurantModel.m in Sources */,
 				B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */,
 				B7E020D718C506260016C912 /* SafeToEatViewController.m in Sources */,
+				B7C3CCF1195FFE3200126C4C /* RestaurantTableViewController.m in Sources */,
 				B7E020D118C506260016C912 /* SafeToEatAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

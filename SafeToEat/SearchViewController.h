@@ -14,4 +14,5 @@
 @interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) NSArray *searchResults;
 @property (weak, nonatomic) IBOutlet UITableView *searchResultsTableView;
+@property (nonatomic) BOOL focusSearch;
 @end
