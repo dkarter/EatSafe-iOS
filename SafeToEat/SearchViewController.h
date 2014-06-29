@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "Models/RestaurantModel.h"
 #import "AFNetworking.h"
 #import <CoreLocation/CoreLocation.h>
 

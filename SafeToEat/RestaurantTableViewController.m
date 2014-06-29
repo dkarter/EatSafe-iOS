@@ -9,6 +9,7 @@
 #import "RestaurantTableViewController.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
+#import "InspectionsTableViewController.h"
 
 @interface RestaurantTableViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *restaurantLogoImageView;
@@ -18,8 +19,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *address2Label;
 @property (weak, nonatomic) IBOutlet UILabel *verdictLabel;
 @property (weak, nonatomic) IBOutlet UILabel *failedInspectionsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *latestInspectionLabel;
-@property (weak, nonatomic) IBOutlet UILabel *gradeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *letterGradeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *complaintsLbl;
+
+@property (weak, nonatomic) IBOutlet UITableView *healthInspectionsTableView;
+
+
+
 
 @end
 
@@ -90,7 +96,13 @@
         
         self.restaurantData = responseObject;
         self.address2Label.text = responseObject[@"address2"];
-        
+        //self.verdictLabel.text = responseObject[@""];
+        self.failedInspectionsLabel.text = [NSString stringWithFormat:@"%d/%d",
+                                            [responseObject[@"failures"] intValue],
+                                            [responseObject[@"count"] intValue]];
+        self.letterGradeLabel.text = responseObject[@"rating"];
+
+        self.complaintsLbl.text = [NSString stringWithFormat:@"%d", [responseObject[@"complaints"] intValue]];
         
         UIImage *placeholderImage = [UIImage imageNamed:@"your_placeholder"];
         
@@ -121,9 +133,11 @@
                                         weakImage2.image = image;
                                         [weakImage2 setNeedsLayout];
                                     } failure:nil];
-
         
-        
+//        //InspectionsTableViewController *itvc = [[InspectionsTableViewController alloc] init];
+//        itvc.inspectionData = responseObject[@"details"];
+//        [self.healthInspectionsTableView setDataSource:itvc];
+//        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error cannot access server at this time."
                                                             message:[error localizedDescription]

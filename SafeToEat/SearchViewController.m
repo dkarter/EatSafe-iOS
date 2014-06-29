@@ -7,7 +7,6 @@
 //
 
 #import "SearchViewController.h"
-#import "Models/RestaurantModel.h"
 #import "UIImageView+AFNetworking.h"
 #import "RestaurantTableViewController.h"
 
