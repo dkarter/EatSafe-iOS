@@ -1,5 +1,5 @@
 //
-//  SafeToEatViewController.h
+//  PlacesViewController.h
 //  SafeToEat
 //
 //  Created by Dorian Karter on 3/3/14.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SafeToEatViewController : UIViewController
-
-
-
+@interface PlacesViewController : UIViewController
+@property (weak, nonatomic) NSArray *healthInspectionData;
 @end

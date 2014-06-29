@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7A9C6C01918A4D500777A79 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A9C6BF1918A4D500777A79 /* Logo.png */; };
+		B7B0B9E918C592FC00625F52 /* PlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B0B9E818C592FC00625F52 /* PlacesViewController.m */; };
+		B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCE8195F716C00126C4C /* SearchViewController.m */; };
 		B7E020C118C506260016C912 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C018C506260016C912 /* Foundation.framework */; };
 		B7E020C318C506260016C912 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C218C506260016C912 /* CoreGraphics.framework */; };
 		B7E020C518C506260016C912 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C418C506260016C912 /* UIKit.framework */; };
@@ -21,6 +24,8 @@
 		B7E020E218C506260016C912 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C418C506260016C912 /* UIKit.framework */; };
 		B7E020EA18C506260016C912 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B7E020E818C506260016C912 /* InfoPlist.strings */; };
 		B7E020EC18C506260016C912 /* SafeToEatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E020EB18C506260016C912 /* SafeToEatTests.m */; };
+		B7E020F818C509260016C912 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020F718C509260016C912 /* CoreLocation.framework */; };
+		C504C03C53A9406FBF359E49 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F2BFE6CAD4E24A7A1C689 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +39,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		018F2BFE6CAD4E24A7A1C689 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7A9C6BF1918A4D500777A79 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
+		B7B0B9E718C592FC00625F52 /* PlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacesViewController.h; sourceTree = "<group>"; };
+		B7B0B9E818C592FC00625F52 /* PlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacesViewController.m; sourceTree = "<group>"; };
+		B7C3CCE7195F716C00126C4C /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		B7C3CCE8195F716C00126C4C /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		B7E020BD18C506260016C912 /* SafeToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeToEat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E020C018C506260016C912 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B7E020C218C506260016C912 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -53,6 +64,9 @@
 		B7E020E718C506260016C912 /* SafeToEatTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SafeToEatTests-Info.plist"; sourceTree = "<group>"; };
 		B7E020E918C506260016C912 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B7E020EB18C506260016C912 /* SafeToEatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeToEatTests.m; sourceTree = "<group>"; };
+		B7E020F518C506DD0016C912 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		B7E020F718C509260016C912 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F0CA2173F83D41DEA6822016 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +74,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7E020F818C509260016C912 /* CoreLocation.framework in Frameworks */,
 				B7E020C318C506260016C912 /* CoreGraphics.framework in Frameworks */,
 				B7E020C518C506260016C912 /* UIKit.framework in Frameworks */,
 				B7E020C118C506260016C912 /* Foundation.framework in Frameworks */,
+				C504C03C53A9406FBF359E49 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +102,7 @@
 				B7E020E518C506260016C912 /* SafeToEatTests */,
 				B7E020BF18C506260016C912 /* Frameworks */,
 				B7E020BE18C506260016C912 /* Products */,
+				F0CA2173F83D41DEA6822016 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,10 +118,13 @@
 		B7E020BF18C506260016C912 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B7E020F718C509260016C912 /* CoreLocation.framework */,
+				B7E020F518C506DD0016C912 /* MobileCoreServices.framework */,
 				B7E020C018C506260016C912 /* Foundation.framework */,
 				B7E020C218C506260016C912 /* CoreGraphics.framework */,
 				B7E020C418C506260016C912 /* UIKit.framework */,
 				B7E020DF18C506260016C912 /* XCTest.framework */,
+				018F2BFE6CAD4E24A7A1C689 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -112,13 +132,15 @@
 		B7E020C618C506260016C912 /* SafeToEat */ = {
 			isa = PBXGroup;
 			children = (
-				B7E020CF18C506260016C912 /* SafeToEatAppDelegate.h */,
-				B7E020D018C506260016C912 /* SafeToEatAppDelegate.m */,
 				B7E020D218C506260016C912 /* Main.storyboard */,
 				B7E020D518C506260016C912 /* SafeToEatViewController.h */,
 				B7E020D618C506260016C912 /* SafeToEatViewController.m */,
+				B7B0B9E718C592FC00625F52 /* PlacesViewController.h */,
+				B7B0B9E818C592FC00625F52 /* PlacesViewController.m */,
 				B7E020D818C506260016C912 /* Images.xcassets */,
 				B7E020C718C506260016C912 /* Supporting Files */,
+				B7C3CCE7195F716C00126C4C /* SearchViewController.h */,
+				B7C3CCE8195F716C00126C4C /* SearchViewController.m */,
 			);
 			path = SafeToEat;
 			sourceTree = "<group>";
@@ -126,6 +148,9 @@
 		B7E020C718C506260016C912 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B7A9C6BF1918A4D500777A79 /* Logo.png */,
+				B7E020CF18C506260016C912 /* SafeToEatAppDelegate.h */,
+				B7E020D018C506260016C912 /* SafeToEatAppDelegate.m */,
 				B7E020C818C506260016C912 /* SafeToEat-Info.plist */,
 				B7E020C918C506260016C912 /* InfoPlist.strings */,
 				B7E020CC18C506260016C912 /* main.m */,
@@ -159,9 +184,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B7E020EF18C506260016C912 /* Build configuration list for PBXNativeTarget "SafeToEat" */;
 			buildPhases = (
+				8544B853F74B46C28D70AFF7 /* Check Pods Manifest.lock */,
 				B7E020B918C506260016C912 /* Sources */,
 				B7E020BA18C506260016C912 /* Frameworks */,
 				B7E020BB18C506260016C912 /* Resources */,
+				EDF47B8B20B54B34B666A446 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -229,6 +256,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7A9C6C01918A4D500777A79 /* Logo.png in Resources */,
 				B7E020D918C506260016C912 /* Images.xcassets in Resources */,
 				B7E020CB18C506260016C912 /* InfoPlist.strings in Resources */,
 				B7E020D418C506260016C912 /* Main.storyboard in Resources */,
@@ -245,12 +273,47 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8544B853F74B46C28D70AFF7 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EDF47B8B20B54B34B666A446 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B7E020B918C506260016C912 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7B0B9E918C592FC00625F52 /* PlacesViewController.m in Sources */,
 				B7E020CD18C506260016C912 /* main.m in Sources */,
+				B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */,
 				B7E020D718C506260016C912 /* SafeToEatViewController.m in Sources */,
 				B7E020D118C506260016C912 /* SafeToEatAppDelegate.m in Sources */,
 			);
@@ -376,12 +439,14 @@
 		};
 		B7E020F018C506260016C912 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0CA2173F83D41DEA6822016 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SafeToEat/SafeToEat-Prefix.pch";
 				INFOPLIST_FILE = "SafeToEat/SafeToEat-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -389,12 +454,14 @@
 		};
 		B7E020F118C506260016C912 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0CA2173F83D41DEA6822016 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SafeToEat/SafeToEat-Prefix.pch";
 				INFOPLIST_FILE = "SafeToEat/SafeToEat-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -461,6 +528,7 @@
 				B7E020F118C506260016C912 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B7E020F218C506260016C912 /* Build configuration list for PBXNativeTarget "SafeToEatTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +537,7 @@
 				B7E020F418C506260016C912 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

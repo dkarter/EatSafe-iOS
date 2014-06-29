@@ -1,0 +1,16 @@
+PODS:
+  - ECSlidingViewController (2.0.1)
+  - JSONKit (1.5pre)
+  - MBProgressHUD (0.8)
+
+DEPENDENCIES:
+  - ECSlidingViewController (~> 2.0.1)
+  - JSONKit (~> 1.4)
+  - MBProgressHUD (~> 0.8)
+
+SPEC CHECKSUMS:
+  ECSlidingViewController: d7bb96ee5bbe261ed80ee16a513f94b9fd3c9767
+  JSONKit: b1f52f3f522b8602307769511d4fb47c6f856159
+  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
+
+COCOAPODS: 0.32.1
