@@ -11,7 +11,7 @@
 
 
 @interface RestaurantTableViewController : UITableViewController
-@property (strong, nonatomic) NSArray *restaurantData;
+@property (strong, nonatomic) NSDictionary *restaurantData;
 @property (strong, nonatomic) NSString *restaurantNameString;
 @property (strong, nonatomic) NSString *restaurantAddressString;
 @property (strong, nonatomic) CLLocation *location;

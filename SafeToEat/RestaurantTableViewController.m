@@ -21,8 +21,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *failedInspectionsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *letterGradeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *complaintsLbl;
-
-@property (weak, nonatomic) IBOutlet UITableView *healthInspectionsTableView;
+@property (weak, nonatomic) IBOutlet UITableViewCell *verdictCell;
+@property (strong, nonatomic) NSDictionary *gradeColorDictionary;
+- (IBAction)bookNow:(UIButton *)sender;
 
 
 
@@ -43,6 +44,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    float baseColor = 255.0f;
+    self.gradeColorDictionary =
+    @{@"A": [UIColor colorWithRed:57.0f/baseColor green:181.0f/baseColor blue:74.0f/baseColor alpha:1],
+      @"B": [UIColor colorWithRed:171.0f/baseColor green:219.0f/baseColor blue:69.0f/baseColor alpha:1],
+      @"C": [UIColor colorWithRed:245.0f/baseColor green:168.0f/baseColor blue:77.0f/baseColor alpha:1],
+      @"F": [UIColor colorWithRed:237.0f/baseColor green:28.0f/baseColor blue:36.0f/baseColor alpha:1]};
+    
     
     [self getRestaurantsByString:[NSString stringWithFormat:@"%@ %@",
                                   self.restaurantNameString,
@@ -50,7 +58,8 @@
                        longitude:self.location.coordinate.longitude
                         latitude:self.location.coordinate.latitude];
     self.restaurantName.text = self.restaurantNameString;
-        self.address1Label.text = self.restaurantAddressString;
+    self.address1Label.text = self.restaurantAddressString;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,7 +90,6 @@
                            latitude,
                            longitude,
                            500];
-    NSLog(@"YEAAA fucker%@", urlString);
     
     urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
@@ -101,6 +109,20 @@
                                             [responseObject[@"failures"] intValue],
                                             [responseObject[@"count"] intValue]];
         self.letterGradeLabel.text = responseObject[@"rating"];
+        
+        if ([responseObject[@"rating"]  isEqual: @"A"]) {
+            self.verdictLabel.text = @"Safe";
+        } else if ([responseObject[@"rating"]  isEqual: @"B"]) {
+            self.verdictLabel.text = @"Fairly Safe";
+        } else if ([responseObject[@"rating"]  isEqual: @"C"]) {
+            self.verdictLabel.text = @"Questionable";
+        } else if([responseObject[@"rating"]  isEqual: @"F"]) {
+            self.verdictLabel.text = @"Avoid";
+        }
+        if (responseObject[@"rating"]) {
+            [self.verdictCell.contentView setBackgroundColor:self.gradeColorDictionary[responseObject[@"rating"]]];
+        }
+
 
         self.complaintsLbl.text = [NSString stringWithFormat:@"%d", [responseObject[@"complaints"] intValue]];
         
@@ -220,4 +242,8 @@
 }
 */
 
+- (IBAction)bookNow:(UIButton *)sender {
+    NSLog(@"%@", self.restaurantData[@"otr_reserve_url"]);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.restaurantData[@"otr_reserve_url"]]];
+}
 @end
