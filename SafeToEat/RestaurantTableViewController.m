@@ -12,6 +12,7 @@
 #import "InspectionsTableViewController.h"
 
 @interface RestaurantTableViewController ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *restaurantLogoImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *yelpRatingImageView;
 @property (weak, nonatomic) IBOutlet UILabel *restaurantName;
@@ -22,11 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *letterGradeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *complaintsLbl;
 @property (weak, nonatomic) IBOutlet UITableViewCell *verdictCell;
-@property (strong, nonatomic) NSDictionary *gradeColorDictionary;
-
-
-
-
 
 @end
 

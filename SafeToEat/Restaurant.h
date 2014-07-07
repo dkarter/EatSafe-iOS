@@ -31,5 +31,6 @@
 
 //initializers
 - (id)initWithJSONWithId:(NSString *)restaurantId;
+- (id)initWithJSONObject:(NSDictionary *)JSON;
 
 @end

@@ -14,19 +14,7 @@
 
 @interface SafeToEatViewController () <CLLocationManagerDelegate>
 
-////properties
-//@property (weak, nonatomic) IBOutlet UILabel *latitudeLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
-//@property (strong, nonatomic) NSArray *currentLocationHealthInspectionsData;
-
-
-////actions
-//- (IBAction)getLocationClicked:(id)sender;
-//- (IBAction)stopMonitoringLocation:(id)sender;
-//- (IBAction)getHealthInspections:(id)sender;
 - (IBAction)searchButtonClicked:(UIButton *)sender;
-
 
 @end
 
@@ -43,8 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     manager = [[CLLocationManager alloc] init];
     geocoder = [[CLGeocoder alloc] init];
@@ -114,6 +100,16 @@
     svc.location = [[CLLocation alloc] initWithLatitude:41.888477 longitude:-87.635332]; //currentLocation;
     svc.focusSearch = [segue.identifier isEqualToString:@"SearchSegue"];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
 }
 
 - (IBAction)searchButtonClicked:(UIButton *)sender {

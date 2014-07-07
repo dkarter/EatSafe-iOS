@@ -35,15 +35,7 @@
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
 
-            self.name               = JSON[@"name"];
-            self.restaurantId       = JSON[@"id"];
-            self.addressLine1       = JSON[@"address"];
-            self.addressLine2       = JSON[@"address2"];
-            self.eatSafeRating      = JSON[@"rating"];
-            self.isNew              = [JSON[@"new"] boolValue];
-            self.yelpRating         = [JSON[@"yelp_rating"] floatValue];
-            self.distance           = [JSON[@"dist"] floatValue];
-            self.profilePictureURL  = [[NSURL alloc] initWithString:JSON[@"pic"]];
+            [self fillFromJSON:JSON];
             
             [[NSNotificationCenter defaultCenter]
                 postNotificationName:@"initWithJSONWithIdFinishedLoading"
@@ -59,6 +51,27 @@
     return self;
 }
 
+
+- (id)initWithJSONObject:(NSDictionary *)JSON {
+    self = [super init];
+    if (self) {
+        [self fillFromJSON:JSON];
+    }
+    return self;
+}
+
+- (void)fillFromJSON:(NSDictionary *)JSON {
+    self.name               = JSON[@"name"];
+    self.restaurantId       = JSON[@"id"];
+    self.addressLine1       = JSON[@"address"];
+    self.addressLine2       = JSON[@"address2"];
+    self.eatSafeRating      = JSON[@"rating"];
+    self.isNew              = [JSON[@"new"] boolValue];
+    self.yelpRating         = [JSON[@"yelp_rating"] floatValue];
+    self.distance           = [JSON[@"dist"] floatValue];
+    self.profilePictureURL  = [[NSURL alloc] initWithString:JSON[@"pic"]];
+
+}
 
 - (UIColor *)ratingColor {
     float baseColor = 255.0f;

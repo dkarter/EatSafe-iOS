@@ -12,8 +12,8 @@
 #import "Restaurant.h"
 
 @interface SearchViewController ()
+
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) NSDictionary *gradeColorDictionary;
 
 @end
 
@@ -45,12 +45,13 @@
     
     UIImage *placeholderImage = [UIImage imageNamed:@"your_placeholder"];
     
-    NSURL *urlRestaurantImage = [NSURL URLWithString:self.searchResults[indexPath.row][@"pic"]];
-    NSURLRequest *requestRestaurantImage = [NSURLRequest requestWithURL:urlRestaurantImage];
+    Restaurant *currentRestaurant = self.searchResults[indexPath.row];
+    
+
 
     __weak UIImageView *weakImage = restaurantImage;
     
-    [restaurantImage setImageWithURLRequest:requestRestaurantImage
+    [restaurantImage setImageWithURLRequest:[NSURLRequest requestWithURL:currentRestaurant.profilePictureURL]
                           placeholderImage:placeholderImage
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                        
@@ -59,27 +60,29 @@
                                    } failure:nil];
 
 
-    NSURL *urlRatingImage = [NSURL URLWithString:self.searchResults[indexPath.row][@"yelp_rating_pic"]];
-    NSURLRequest *requestRatingImage = [NSURLRequest requestWithURL:urlRatingImage];
-    NSLog(@"%@", urlRatingImage);
-    
-    __weak UIImageView *weakImage2 = ratingImage;
-    
-    [ratingImage setImageWithURLRequest:requestRatingImage
-                           placeholderImage:placeholderImage
-                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                        
-                                        weakImage2.image = image;
-                                        [weakImage2 setNeedsLayout];
-                                    } failure:nil];
+//    NSURL *urlRatingImage = [NSURL URLWithString:self.searchResults[indexPath.row][@"yelp_rating_pic"]];
+//    NSURLRequest *requestRatingImage = [NSURLRequest requestWithURL:urlRatingImage];
+//    NSLog(@"%@", urlRatingImage);
+//    
+//    __weak UIImageView *weakImage2 = ratingImage;
+//    
+//    [ratingImage setImageWithURLRequest:requestRatingImage
+//                           placeholderImage:placeholderImage
+//                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+//                                        
+//                                        weakImage2.image = image;
+//                                        [weakImage2 setNeedsLayout];
+//                                    } failure:nil];
 
-    titleLabel.text = self.searchResults[indexPath.row][@"name"];
-    addressLabel.text = self.searchResults[indexPath.row][@"address"];
-    ratingLabel.text = self.searchResults[indexPath.row][@"rating"];
+    titleLabel.text = currentRestaurant.name;
+    addressLabel.text = currentRestaurant.addressLine1;
+    ratingLabel.text = currentRestaurant.eatSafeRating;
     
-    distanceLabel.text = [NSString stringWithFormat:@"%@ miles", self.searchResults[indexPath.row][@"dist"]];
     
-    [ratingLabel setBackgroundColor:[self.gradeColorDictionary objectForKey:self.searchResults[indexPath.row][@"rating"]]];
+    //TODO: refactor to property
+    distanceLabel.text = [NSString stringWithFormat:@"%f miles", currentRestaurant.distance];
+    
+    [ratingLabel setBackgroundColor:currentRestaurant.ratingColor];
 
     return cell;
 }
@@ -95,17 +98,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
     if (self.focusSearch) {
         [self.searchBar becomeFirstResponder];
     }
     self.searchResults = [[NSArray alloc] init];
-    float baseColor = 255.0f;
-    self.gradeColorDictionary =
-        @{@"A": [UIColor colorWithRed:57.0f/baseColor green:181.0f/baseColor blue:74.0f/baseColor alpha:1],
-          @"B": [UIColor colorWithRed:171.0f/baseColor green:219.0f/baseColor blue:69.0f/baseColor alpha:1],
-          @"C": [UIColor colorWithRed:245.0f/baseColor green:168.0f/baseColor blue:77.0f/baseColor alpha:1],
-          @"F": [UIColor colorWithRed:237.0f/baseColor green:28.0f/baseColor blue:36.0f/baseColor alpha:1]};
     [self getRestaurantsByLongitude:self.location.coordinate.longitude latitude:self.location.coordinate.latitude];
     // Do any additional setup after loading the view.
     
@@ -124,8 +120,6 @@
     [self.searchBar resignFirstResponder];
 
     RestaurantTableViewController *rtvc = [self.storyboard instantiateViewControllerWithIdentifier:@"restaurantTableView"];
-    rtvc.restaurantNameString = self.searchResults[indexPath.row][@"name"];
-    rtvc.restaurantAddressString = self.searchResults[indexPath.row][@"address"];
     rtvc.restaurantId = self.searchResults[indexPath.row][@"id"];
     rtvc.location = self.location;
     
@@ -147,9 +141,10 @@
 }
 
 - (void) getRestaurantsByLongitude: (float)longitude latitude:(float) latitude {
-    NSString *restaurantURL = @"http://eatsafe.ngrok.com/near?lat=%f&long=%f&d=%d";
+    NSString *restaurantURL = @"%@/near?lat=%f&long=%f&d=%d";
     
     NSString *urlString = [NSString stringWithFormat:restaurantURL,
+                           kESBaseURL,
                            latitude,
                            longitude,
                            500];
@@ -163,9 +158,15 @@
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-    
-        self.searchResults = [NSArray arrayWithArray: responseObject];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSONArray) {
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (NSDictionary *JSON in JSONArray) {
+            Restaurant *tempRestaurant = [[Restaurant alloc] initWithJSONObject:JSON];
+            [tempArray addObject:tempRestaurant];
+        }
+
+        searchResults = [NSArray arrayWithArray:tempArray];
+
         [self.searchResultsTableView reloadData];
     
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -182,9 +183,10 @@
 }
 
 - (void) getRestaurantsByString: (NSString *)searchString longitude: (float)longitude latitude:(float) latitude {
-    NSString *restaurantURL = @"http://eatsafe.ngrok.com/instant?query=%@&lat=%f&long=%f&d=%d";
+    NSString *restaurantURL = @"%@/instant?query=%@&lat=%f&long=%f&d=%d";
     
     NSString *urlString = [NSString stringWithFormat:restaurantURL,
+                           kESBaseURL,
                            searchString,
                            latitude,
                            longitude,

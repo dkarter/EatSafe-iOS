@@ -52,6 +52,7 @@
 		B7C3CCF31960638D00126C4C /* InspectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InspectionsTableViewController.m; sourceTree = "<group>"; };
 		B7C3CCF51969FB6400126C4C /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
 		B7C3CCF61969FB6400126C4C /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
+		B7C3CCF9196A445C00126C4C /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B7E020BD18C506260016C912 /* SafeToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeToEat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E020C018C506260016C912 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B7E020C218C506260016C912 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -102,6 +103,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B7C3CCFA196A454100126C4C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B7C3CCF51969FB6400126C4C /* Restaurant.h */,
+				B7C3CCF61969FB6400126C4C /* Restaurant.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		B7E020B418C506260016C912 = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +149,7 @@
 		B7E020C618C506260016C912 /* SafeToEat */ = {
 			isa = PBXGroup;
 			children = (
+				B7C3CCFA196A454100126C4C /* Models */,
 				B7E020D218C506260016C912 /* Main.storyboard */,
 				B7E020D518C506260016C912 /* SafeToEatViewController.h */,
 				B7E020D618C506260016C912 /* SafeToEatViewController.m */,
@@ -150,8 +161,7 @@
 				B7C3CCF31960638D00126C4C /* InspectionsTableViewController.m */,
 				B7E020D818C506260016C912 /* Images.xcassets */,
 				B7E020C718C506260016C912 /* Supporting Files */,
-				B7C3CCF51969FB6400126C4C /* Restaurant.h */,
-				B7C3CCF61969FB6400126C4C /* Restaurant.m */,
+				B7C3CCF9196A445C00126C4C /* Constants.h */,
 			);
 			path = SafeToEat;
 			sourceTree = "<group>";
