@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-
+#import "Restaurant.h"
 
 @interface RestaurantTableViewController : UITableViewController
-@property (strong, nonatomic) NSDictionary *restaurantData;
+@property (strong, nonatomic) Restaurant *restaurant;
 @property (strong, nonatomic) NSString *restaurantNameString;
 @property (strong, nonatomic) NSString *restaurantAddressString;
+@property (strong, nonatomic) NSString *restaurantId;
 @property (strong, nonatomic) CLLocation *location;
 
 @end

@@ -11,6 +11,7 @@
 		B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCE8195F716C00126C4C /* SearchViewController.m */; };
 		B7C3CCF1195FFE3200126C4C /* RestaurantTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */; };
 		B7C3CCF41960638D00126C4C /* InspectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCF31960638D00126C4C /* InspectionsTableViewController.m */; };
+		B7C3CCF71969FB6400126C4C /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCF61969FB6400126C4C /* Restaurant.m */; };
 		B7E020C118C506260016C912 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C018C506260016C912 /* Foundation.framework */; };
 		B7E020C318C506260016C912 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C218C506260016C912 /* CoreGraphics.framework */; };
 		B7E020C518C506260016C912 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C418C506260016C912 /* UIKit.framework */; };
@@ -49,6 +50,8 @@
 		B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantTableViewController.m; sourceTree = "<group>"; };
 		B7C3CCF21960638D00126C4C /* InspectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InspectionsTableViewController.h; sourceTree = "<group>"; };
 		B7C3CCF31960638D00126C4C /* InspectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InspectionsTableViewController.m; sourceTree = "<group>"; };
+		B7C3CCF51969FB6400126C4C /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
+		B7C3CCF61969FB6400126C4C /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		B7E020BD18C506260016C912 /* SafeToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeToEat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E020C018C506260016C912 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B7E020C218C506260016C912 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -147,6 +150,8 @@
 				B7C3CCF31960638D00126C4C /* InspectionsTableViewController.m */,
 				B7E020D818C506260016C912 /* Images.xcassets */,
 				B7E020C718C506260016C912 /* Supporting Files */,
+				B7C3CCF51969FB6400126C4C /* Restaurant.h */,
+				B7C3CCF61969FB6400126C4C /* Restaurant.m */,
 			);
 			path = SafeToEat;
 			sourceTree = "<group>";
@@ -231,7 +236,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SafeToEat;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = SpiralTech;
 				TargetAttributes = {
 					B7E020DD18C506260016C912 = {
@@ -319,6 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7E020CD18C506260016C912 /* main.m in Sources */,
+				B7C3CCF71969FB6400126C4C /* Restaurant.m in Sources */,
 				B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */,
 				B7E020D718C506260016C912 /* SafeToEatViewController.m in Sources */,
 				B7C3CCF1195FFE3200126C4C /* RestaurantTableViewController.m in Sources */,
@@ -377,7 +383,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -416,7 +421,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -478,7 +482,6 @@
 		B7E020F318C506260016C912 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SafeToEat.app/SafeToEat";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -501,7 +504,6 @@
 		B7E020F418C506260016C912 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SafeToEat.app/SafeToEat";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

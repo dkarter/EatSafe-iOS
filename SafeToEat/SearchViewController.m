@@ -9,6 +9,7 @@
 #import "SearchViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "RestaurantTableViewController.h"
+#import "Restaurant.h"
 
 @interface SearchViewController ()
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -118,20 +119,6 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([segue.identifier isEqualToString:@"RestaurantPageSegue"]) {
-//        //get the details for the specific restaurant and pass to dest view controller
-//        RestaurantTableViewController *rtvc = [segue destinationViewController];
-//        
-//        //rtvc.restaurantData =
-//    }
-//    // Get the new view controller using [segue destinationViewController].
-//    // Pass the selected object to the new view controller.
-//    
-//}
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.searchBar resignFirstResponder];
@@ -139,6 +126,7 @@
     RestaurantTableViewController *rtvc = [self.storyboard instantiateViewControllerWithIdentifier:@"restaurantTableView"];
     rtvc.restaurantNameString = self.searchResults[indexPath.row][@"name"];
     rtvc.restaurantAddressString = self.searchResults[indexPath.row][@"address"];
+    rtvc.restaurantId = self.searchResults[indexPath.row][@"id"];
     rtvc.location = self.location;
     
     [self.navigationController pushViewController:rtvc animated:YES];
