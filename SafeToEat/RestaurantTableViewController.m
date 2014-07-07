@@ -76,23 +76,20 @@
 
 
 - (void)dataRetrieved {
+    self.restaurantName.text = self.restaurant.name;
     self.address1Label.text = self.restaurant.addressLine1;
-    
+    self.address2Label.text = self.restaurant.addressLine2;
     self.failedInspectionsLabel.text = self.restaurant.failedInspectionsString;
     self.letterGradeLabel.text = self.restaurant.eatSafeRating;
-    
 
-    //self.gradeColorDictionary[JSON[@"rating"]]
-    [self.verdictCell.contentView setBackgroundColor:self.restaurant.ratingColor];
-    
     self.verdictLabel.text = self.restaurant.verdictString;
-    
+    [self.verdictCell.contentView setBackgroundColor:self.restaurant.ratingColor];
+
     self.complaintsLbl.text = [NSString stringWithFormat:@"%d", self.restaurant.complaints];
-    
-    UIImage *placeholderImage = [UIImage imageNamed:@"your_placeholder"];
-    
 
-
+    [self.yelpRatingImageView setImage:self.restaurant.yelpRatingImage];
+    
+    UIImage *placeholderImage = [UIImage imageNamed:@"BusinessPlaceholder"];
     
     __weak UIImageView *weakImage = self.restaurantLogoImageView;
     
@@ -103,21 +100,8 @@
                                                      weakImage.image = image;
                                                      [weakImage setNeedsLayout];
                                                  } failure:nil];
-    //http://stackoverflow.com/questions/13578151/showing-only-a-portion-of-the-original-image-in-a-uiimageview
-    
-//    NSURL *urlRatingImage = [NSURL URLWithString:JSON[@"yelp_rating_pic"]];
-//    NSURLRequest *requestRatingImage = [NSURLRequest requestWithURL:urlRatingImage];
-//    NSLog(@"%@", urlRatingImage);
-//    
-//    __weak UIImageView *weakImage2 = self.yelpRatingImageView;
-//    
-//    [self.yelpRatingImageView setImageWithURLRequest:requestRatingImage
-//                                    placeholderImage:placeholderImage
-//                                             success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-//                                                 
-//                                                 weakImage2.image = image;
-//                                                 [weakImage2 setNeedsLayout];
-//                                             } failure:nil];
+
+
 
 }
 

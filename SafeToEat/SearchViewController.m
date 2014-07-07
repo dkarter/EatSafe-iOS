@@ -22,14 +22,6 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
- //   static NSString *CellIdentifier = @"Cell";
- //   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
- //
- //   if (!cell) {
- //       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
- //   }
-    //set cell type
-    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell == nil){
@@ -43,7 +35,7 @@
     UIImageView *ratingImage = (UIImageView *)[cell.contentView viewWithTag:50];
     UILabel *distanceLabel =  (UILabel *)[cell.contentView viewWithTag:60];
     
-    UIImage *placeholderImage = [UIImage imageNamed:@"your_placeholder"];
+    UIImage *placeholderImage = [UIImage imageNamed:@"BusinessPlaceholder"];
     
     Restaurant *currentRestaurant = self.searchResults[indexPath.row];
     
@@ -54,25 +46,11 @@
     [restaurantImage setImageWithURLRequest:[NSURLRequest requestWithURL:currentRestaurant.profilePictureURL]
                           placeholderImage:placeholderImage
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       
                                        weakImage.image = image;
                                        [weakImage setNeedsLayout];
                                    } failure:nil];
 
-
-//    NSURL *urlRatingImage = [NSURL URLWithString:self.searchResults[indexPath.row][@"yelp_rating_pic"]];
-//    NSURLRequest *requestRatingImage = [NSURLRequest requestWithURL:urlRatingImage];
-//    NSLog(@"%@", urlRatingImage);
-//    
-//    __weak UIImageView *weakImage2 = ratingImage;
-//    
-//    [ratingImage setImageWithURLRequest:requestRatingImage
-//                           placeholderImage:placeholderImage
-//                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-//                                        
-//                                        weakImage2.image = image;
-//                                        [weakImage2 setNeedsLayout];
-//                                    } failure:nil];
+    [ratingImage setImage:currentRestaurant.yelpRatingImage];
 
     titleLabel.text = currentRestaurant.name;
     addressLabel.text = currentRestaurant.addressLine1;
@@ -120,7 +98,8 @@
     [self.searchBar resignFirstResponder];
 
     RestaurantTableViewController *rtvc = [self.storyboard instantiateViewControllerWithIdentifier:@"restaurantTableView"];
-    rtvc.restaurantId = self.searchResults[indexPath.row][@"id"];
+    Restaurant *selectedRestaurant = self.searchResults[indexPath.row];
+    rtvc.restaurantId = selectedRestaurant.restaurantId;
     rtvc.location = self.location;
     
     [self.navigationController pushViewController:rtvc animated:YES];

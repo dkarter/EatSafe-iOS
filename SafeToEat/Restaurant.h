@@ -15,9 +15,7 @@
 @property (strong, nonatomic) NSString *addressLine1;
 @property (strong, nonatomic) NSString *addressLine2;
 @property (strong, nonatomic) NSString *eatSafeRating;
-@property (strong, nonatomic, readonly) NSString *failedInspectionsString;
-@property (strong, nonatomic, readonly) NSString *verdictString;
-@property (strong, nonatomic, readonly) UIColor *ratingColor;
+
 @property (nonatomic) BOOL isNew;
 @property (nonatomic) float yelpRating;
 @property (nonatomic) int failures;
@@ -27,7 +25,14 @@
 @property (nonatomic) float longitude;
 @property (nonatomic) float latitude;
 @property (strong, nonatomic) NSURL *profilePictureURL;
+
 @property (strong, nonatomic) NSURL *yelpURL;
+
+//readonly getters
+@property (strong, nonatomic, readonly) NSString *failedInspectionsString;
+@property (strong, nonatomic, readonly) NSString *verdictString;
+@property (strong, nonatomic, readonly) UIColor *ratingColor;
+@property (strong, nonatomic, readonly) UIImage *yelpRatingImage;
 
 //initializers
 - (id)initWithJSONWithId:(NSString *)restaurantId;

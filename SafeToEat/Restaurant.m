@@ -20,12 +20,10 @@
 - (id)initWithJSONWithId:(NSString *)restaurantId {
     self = [super init];
     if (self) {
-        NSString *restaurantURL = @"http://eatsafe.ngrok.com/place?id=%@";
+        NSString *restaurantURL = @"%@/place?id=%@";
         
-        NSString *urlString = [NSString stringWithFormat:restaurantURL, restaurantId];
-        
-        urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
+        NSString *urlString = [NSString stringWithFormat:restaurantURL,
+                               kESBaseURL, restaurantId];
         
         NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -69,7 +67,17 @@
     self.isNew              = [JSON[@"new"] boolValue];
     self.yelpRating         = [JSON[@"yelp_rating"] floatValue];
     self.distance           = [JSON[@"dist"] floatValue];
-    self.profilePictureURL  = [[NSURL alloc] initWithString:JSON[@"pic"]];
+    self.failures           = [JSON[@"failures"] intValue];
+    self.complaints         = [JSON[@"complaints"] intValue];
+    self.inspectionCount    = [JSON[@"count"] intValue];
+    self.longitude          = [JSON[@"long"] floatValue];
+    self.latitude           = [JSON[@"lat"] floatValue];
+    
+    if (![JSON[@"pic"] isEqualToString:@""]) {
+        self.profilePictureURL  = [NSURL URLWithString:JSON[@"pic"]];
+    } else {
+        self.profilePictureURL = [[NSURL alloc] init];
+    }
 
 }
 
@@ -98,4 +106,13 @@
     }
     return @"Error";
 }
+
+- (UIImage *)yelpRatingImage {
+    //return gray boxes with no rating
+    UIImage *result = [UIImage imageNamed:[NSString stringWithFormat:@"yelp_%f", self.yelpRating]];
+    return result;
+}
+
+
+
 @end
