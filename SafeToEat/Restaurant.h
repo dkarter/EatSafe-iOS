@@ -33,6 +33,7 @@
 @property (strong, nonatomic, readonly) NSString *verdictString;
 @property (strong, nonatomic, readonly) UIColor *ratingColor;
 @property (strong, nonatomic, readonly) UIImage *yelpRatingImage;
+@property (strong, nonatomic, readonly) NSString *distanceString;
 
 //initializers
 - (id)initWithJSONWithId:(NSString *)restaurantId;

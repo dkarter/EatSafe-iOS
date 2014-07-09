@@ -54,13 +54,10 @@
 
     titleLabel.text = currentRestaurant.name;
     addressLabel.text = currentRestaurant.addressLine1;
+    distanceLabel.text = currentRestaurant.distanceString;
     ratingLabel.text = currentRestaurant.eatSafeRating;
     
-    
-    //TODO: refactor to property
-    distanceLabel.text = [NSString stringWithFormat:@"%f miles", currentRestaurant.distance];
-    
-    [ratingLabel setBackgroundColor:currentRestaurant.ratingColor];
+    [ratingLabel setTextColor:currentRestaurant.ratingColor];
 
     return cell;
 }
@@ -81,7 +78,8 @@
     }
     self.searchResults = [[NSArray alloc] init];
     [self getRestaurantsByLongitude:self.location.coordinate.longitude latitude:self.location.coordinate.latitude];
-    // Do any additional setup after loading the view.
+
+    //[[UILabel appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor redColor]];
     
 }
 

@@ -113,6 +113,8 @@
     return result;
 }
 
-
+- (NSString *)distanceString {
+    return [NSString stringWithFormat:@"%0.1f miles", self.distance];
+}
 
 @end
