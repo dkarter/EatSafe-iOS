@@ -10,12 +10,15 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 #import <CoreLocation/CoreLocation.h>
+#import "Models/LocationManager.h"
 
-@interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SearchViewController : UIViewController <UISearchBarDelegate,
+                                                    UITableViewDataSource,
+                                                    UITableViewDelegate,
+                                                    ESLocationManagerDelegate>
 
 @property (strong, nonatomic) NSArray *searchResults;
 @property (weak, nonatomic) IBOutlet UITableView *searchResultsTableView;
-@property (nonatomic) BOOL focusSearch;
-@property (strong, nonatomic) CLLocation *location;
+@property (nonatomic) BOOL inSearchMode;
 
 @end

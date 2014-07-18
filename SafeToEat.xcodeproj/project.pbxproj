@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B71A975E197745C300FAC497 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71A975D197745C300FAC497 /* MapKit.framework */; };
+		B71A97611977560D00FAC497 /* HealthInspection.m in Sources */ = {isa = PBXBuildFile; fileRef = B71A97601977560D00FAC497 /* HealthInspection.m */; };
+		B71A976519775F6E00FAC497 /* InspectionListDataSourceDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B71A976419775F6E00FAC497 /* InspectionListDataSourceDelegate.m */; };
 		B7A9C6C01918A4D500777A79 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A9C6BF1918A4D500777A79 /* Logo.png */; };
 		B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCE8195F716C00126C4C /* SearchViewController.m */; };
 		B7C3CCF1195FFE3200126C4C /* RestaurantTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */; };
 		B7C3CCF41960638D00126C4C /* InspectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCF31960638D00126C4C /* InspectionsTableViewController.m */; };
 		B7C3CCF71969FB6400126C4C /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCF61969FB6400126C4C /* Restaurant.m */; };
+		B7C3CCFD196E13C600126C4C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCFC196E13C600126C4C /* LocationManager.m */; };
+		B7C3CD611973521A00126C4C /* StringHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CD601973521A00126C4C /* StringHelpers.m */; };
+		B7C3CD6319737FC200126C4C /* default (1).gpx in Resources */ = {isa = PBXBuildFile; fileRef = B7C3CD6219737FC200126C4C /* default (1).gpx */; };
 		B7E020C118C506260016C912 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C018C506260016C912 /* Foundation.framework */; };
 		B7E020C318C506260016C912 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C218C506260016C912 /* CoreGraphics.framework */; };
 		B7E020C518C506260016C912 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C418C506260016C912 /* UIKit.framework */; };
@@ -42,6 +48,11 @@
 
 /* Begin PBXFileReference section */
 		018F2BFE6CAD4E24A7A1C689 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B71A975D197745C300FAC497 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		B71A975F1977560D00FAC497 /* HealthInspection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HealthInspection.h; path = Models/HealthInspection.h; sourceTree = "<group>"; };
+		B71A97601977560D00FAC497 /* HealthInspection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HealthInspection.m; path = Models/HealthInspection.m; sourceTree = "<group>"; };
+		B71A976319775F6E00FAC497 /* InspectionListDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InspectionListDataSourceDelegate.h; path = DataSourceDelegates/InspectionListDataSourceDelegate.h; sourceTree = "<group>"; };
+		B71A976419775F6E00FAC497 /* InspectionListDataSourceDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InspectionListDataSourceDelegate.m; path = DataSourceDelegates/InspectionListDataSourceDelegate.m; sourceTree = "<group>"; };
 		B7A9C6BF1918A4D500777A79 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		B7C3CCE7195F716C00126C4C /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		B7C3CCE8195F716C00126C4C /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
@@ -53,6 +64,11 @@
 		B7C3CCF51969FB6400126C4C /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
 		B7C3CCF61969FB6400126C4C /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		B7C3CCF9196A445C00126C4C /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		B7C3CCFB196E13C600126C4C /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationManager.h; path = Models/LocationManager.h; sourceTree = "<group>"; };
+		B7C3CCFC196E13C600126C4C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationManager.m; path = Models/LocationManager.m; sourceTree = "<group>"; };
+		B7C3CD5F1973521A00126C4C /* StringHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringHelpers.h; path = Helpers/StringHelpers.h; sourceTree = "<group>"; };
+		B7C3CD601973521A00126C4C /* StringHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringHelpers.m; path = Helpers/StringHelpers.m; sourceTree = "<group>"; };
+		B7C3CD6219737FC200126C4C /* default (1).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "default (1).gpx"; sourceTree = "<group>"; };
 		B7E020BD18C506260016C912 /* SafeToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeToEat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E020C018C506260016C912 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B7E020C218C506260016C912 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -82,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B71A975E197745C300FAC497 /* MapKit.framework in Frameworks */,
 				B7E020F818C509260016C912 /* CoreLocation.framework in Frameworks */,
 				B7E020C318C506260016C912 /* CoreGraphics.framework in Frameworks */,
 				B7E020C518C506260016C912 /* UIKit.framework in Frameworks */,
@@ -103,13 +120,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B71A976219775E8700FAC497 /* DataSourceDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				B71A976319775F6E00FAC497 /* InspectionListDataSourceDelegate.h */,
+				B71A976419775F6E00FAC497 /* InspectionListDataSourceDelegate.m */,
+			);
+			name = DataSourceDelegates;
+			sourceTree = "<group>";
+		};
 		B7C3CCFA196A454100126C4C /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				B7C3CCF51969FB6400126C4C /* Restaurant.h */,
 				B7C3CCF61969FB6400126C4C /* Restaurant.m */,
+				B7C3CCFB196E13C600126C4C /* LocationManager.h */,
+				B7C3CCFC196E13C600126C4C /* LocationManager.m */,
+				B71A975F1977560D00FAC497 /* HealthInspection.h */,
+				B71A97601977560D00FAC497 /* HealthInspection.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		B7C3CD5D197351C300126C4C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B7E020D518C506260016C912 /* SafeToEatViewController.h */,
+				B7E020D618C506260016C912 /* SafeToEatViewController.m */,
+				B7C3CCE7195F716C00126C4C /* SearchViewController.h */,
+				B7C3CCE8195F716C00126C4C /* SearchViewController.m */,
+				B7C3CCEF195FFE3200126C4C /* RestaurantTableViewController.h */,
+				B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */,
+				B7C3CCF21960638D00126C4C /* InspectionsTableViewController.h */,
+				B7C3CCF31960638D00126C4C /* InspectionsTableViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B7C3CD5E197351E300126C4C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B7C3CCF9196A445C00126C4C /* Constants.h */,
+				B7C3CD5F1973521A00126C4C /* StringHelpers.h */,
+				B7C3CD601973521A00126C4C /* StringHelpers.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		B7E020B418C506260016C912 = {
@@ -135,6 +190,7 @@
 		B7E020BF18C506260016C912 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B71A975D197745C300FAC497 /* MapKit.framework */,
 				B7E020F718C509260016C912 /* CoreLocation.framework */,
 				B7E020F518C506DD0016C912 /* MobileCoreServices.framework */,
 				B7E020C018C506260016C912 /* Foundation.framework */,
@@ -149,19 +205,12 @@
 		B7E020C618C506260016C912 /* SafeToEat */ = {
 			isa = PBXGroup;
 			children = (
+				B71A976219775E8700FAC497 /* DataSourceDelegates */,
+				B7C3CD5E197351E300126C4C /* Helpers */,
+				B7C3CD5D197351C300126C4C /* ViewControllers */,
 				B7C3CCFA196A454100126C4C /* Models */,
 				B7E020D218C506260016C912 /* Main.storyboard */,
-				B7E020D518C506260016C912 /* SafeToEatViewController.h */,
-				B7E020D618C506260016C912 /* SafeToEatViewController.m */,
-				B7C3CCE7195F716C00126C4C /* SearchViewController.h */,
-				B7C3CCE8195F716C00126C4C /* SearchViewController.m */,
-				B7C3CCEF195FFE3200126C4C /* RestaurantTableViewController.h */,
-				B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */,
-				B7C3CCF21960638D00126C4C /* InspectionsTableViewController.h */,
-				B7C3CCF31960638D00126C4C /* InspectionsTableViewController.m */,
-				B7E020D818C506260016C912 /* Images.xcassets */,
 				B7E020C718C506260016C912 /* Supporting Files */,
-				B7C3CCF9196A445C00126C4C /* Constants.h */,
 			);
 			path = SafeToEat;
 			sourceTree = "<group>";
@@ -169,6 +218,8 @@
 		B7E020C718C506260016C912 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B7C3CD6219737FC200126C4C /* default (1).gpx */,
+				B7E020D818C506260016C912 /* Images.xcassets */,
 				B7A9C6BF1918A4D500777A79 /* Logo.png */,
 				B7C3CCEA195FA15100126C4C /* fontawesome-webfont.ttf */,
 				B7E020CF18C506260016C912 /* SafeToEatAppDelegate.h */,
@@ -281,6 +332,7 @@
 				B7A9C6C01918A4D500777A79 /* Logo.png in Resources */,
 				B7E020D918C506260016C912 /* Images.xcassets in Resources */,
 				B7E020CB18C506260016C912 /* InfoPlist.strings in Resources */,
+				B7C3CD6319737FC200126C4C /* default (1).gpx in Resources */,
 				B7E020D418C506260016C912 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,13 +385,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7C3CCFD196E13C600126C4C /* LocationManager.m in Sources */,
 				B7E020CD18C506260016C912 /* main.m in Sources */,
 				B7C3CCF71969FB6400126C4C /* Restaurant.m in Sources */,
 				B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */,
+				B71A976519775F6E00FAC497 /* InspectionListDataSourceDelegate.m in Sources */,
 				B7E020D718C506260016C912 /* SafeToEatViewController.m in Sources */,
 				B7C3CCF1195FFE3200126C4C /* RestaurantTableViewController.m in Sources */,
+				B7C3CD611973521A00126C4C /* StringHelpers.m in Sources */,
 				B7C3CCF41960638D00126C4C /* InspectionsTableViewController.m in Sources */,
 				B7E020D118C506260016C912 /* SafeToEatAppDelegate.m in Sources */,
+				B71A97611977560D00FAC497 /* HealthInspection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,7 +477,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -453,7 +509,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

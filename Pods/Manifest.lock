@@ -21,16 +21,33 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - ECSlidingViewController (2.0.1)
+  - FontAwesomeKit (2.1.7):
+    - FontAwesomeKit/Core
+    - FontAwesomeKit/FontAwesome
+    - FontAwesomeKit/FoundationIcons
+    - FontAwesomeKit/IonIcons
+    - FontAwesomeKit/Zocial
+  - FontAwesomeKit/Core (2.1.7)
+  - FontAwesomeKit/FontAwesome (2.1.7):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/FoundationIcons (2.1.7):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/IonIcons (2.1.7):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/Zocial (2.1.7):
+    - FontAwesomeKit/Core
   - MBProgressHUD (0.8)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - ECSlidingViewController (~> 2.0.1)
+  - FontAwesomeKit (~> 2.1.0)
   - MBProgressHUD (~> 0.8)
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
   ECSlidingViewController: e93ab7e075fc9a99a874fa050ce3b2a64026eb85
+  FontAwesomeKit: af6eef70d23986349284d2feb4e959459621587d
   MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
 
 COCOAPODS: 0.33.1

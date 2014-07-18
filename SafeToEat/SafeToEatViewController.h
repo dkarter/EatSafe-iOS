@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface SafeToEatViewController : UIViewController
+@interface SafeToEatViewController : UIViewController <CLLocationManagerDelegate>
 
 
 

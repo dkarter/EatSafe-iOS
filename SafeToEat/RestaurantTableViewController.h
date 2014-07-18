@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "Restaurant.h"
+#import "HealthInspection.h"
+#import "InspectionListDataSourceDelegate.h"
 
 @interface RestaurantTableViewController : UITableViewController
 @property (strong, nonatomic) Restaurant *restaurant;

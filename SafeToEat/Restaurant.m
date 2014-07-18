@@ -8,6 +8,7 @@
 
 #import "Restaurant.h"
 #import "AFNetworking.h"
+#import "Models/HealthInspection.h"
 
 @implementation Restaurant
 
@@ -65,18 +66,29 @@
     self.addressLine2       = JSON[@"address2"];
     self.eatSafeRating      = JSON[@"rating"];
     self.isNew              = [JSON[@"new"] boolValue];
-    self.yelpRating         = [JSON[@"yelp_rating"] floatValue];
+    self.yelpRating         = [[JSON[@"yelp_rating"] class] isSubclassOfClass:[NSNull class]] ? 0.0f : [JSON[@"yelp_rating"] floatValue];
     self.distance           = [JSON[@"dist"] floatValue];
-    self.failures           = [JSON[@"failures"] intValue];
+    self.failures           = [JSON[@"fails"] intValue];
     self.complaints         = [JSON[@"complaints"] intValue];
     self.inspectionCount    = [JSON[@"count"] intValue];
     self.longitude          = [JSON[@"long"] floatValue];
     self.latitude           = [JSON[@"lat"] floatValue];
     
+    //load individual inspections into array of healthinspection objects
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    for (NSDictionary *inspectionsJSON in JSON[@"inspections"]) {
+        HealthInspection *tempInspection = [[HealthInspection alloc] initWithJSONObject:inspectionsJSON];
+        [tempArray addObject:tempInspection];
+    }
+    
+    self.inspectionList = [NSArray arrayWithArray:tempArray];
+    
+    
+    
     if (![JSON[@"pic"] isEqualToString:@""]) {
         self.profilePictureURL  = [NSURL URLWithString:JSON[@"pic"]];
     } else {
-        self.profilePictureURL = [[NSURL alloc] init];
+        self.profilePictureURL = nil;
     }
 
 }

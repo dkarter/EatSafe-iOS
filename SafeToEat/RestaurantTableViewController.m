@@ -23,10 +23,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *letterGradeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *complaintsLbl;
 @property (weak, nonatomic) IBOutlet UITableViewCell *verdictCell;
+@property (weak, nonatomic) IBOutlet UITableView *inspectionsTable;
 
 @end
 
-@implementation RestaurantTableViewController
+@implementation RestaurantTableViewController {
+    InspectionListDataSourceDelegate *inspectionsListDataSource;
+}
+
 
 //- (id)initWithStyle:(UITableViewStyle)style
 //{
@@ -59,19 +63,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return 4;
-}
 
 
 
@@ -101,12 +93,24 @@
                                                      [weakImage setNeedsLayout];
                                                  } failure:nil];
 
-
-
+    inspectionsListDataSource = [[InspectionListDataSourceDelegate alloc] init];
+    inspectionsListDataSource.inspections = self.restaurant.inspectionList;
+    [self.inspectionsTable setDataSource:inspectionsListDataSource];
+    [self.inspectionsTable reloadData];
 }
 
 
+#pragma mark - UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 4;
+}
 
 
 /*
