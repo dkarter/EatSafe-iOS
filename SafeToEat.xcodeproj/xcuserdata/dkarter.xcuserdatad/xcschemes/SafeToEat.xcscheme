@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B7E020DD18C506260016C912"
-               BuildableName = "SafeToEatTests.xctest"
+               BuildableName = "EatSafeTests.xctest"
                BlueprintName = "EatSafeTests"
                ReferencedContainer = "container:SafeToEat.xcodeproj">
             </BuildableReference>

@@ -17,8 +17,6 @@
 @interface SearchViewController ()
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *locationButton;
-- (IBAction)locationButtonTapped:(UIBarButtonItem *)sender;
 @property (strong, nonatomic) LocationManager *locationManager;
 @property (strong, nonatomic) id<UIApplicationDelegate> appDelegate;
 @end
@@ -44,17 +42,6 @@ bool useLocation = YES;
         [self.locationManager startUpdatingLocation];
 
     }
-    
-    
-    //setup loaction button
-    FAKFontAwesome *locationIcon = [FAKFontAwesome locationArrowIconWithSize:15];
-    self.locationButton.title = @" ";
-    [self.locationButton setImage:[locationIcon imageWithSize:CGSizeMake(15,15)]];
-    [self.locationButton setTintColor:[UIColor darkGrayColor]];
-    
-    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil]
-     setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}
-     forState:UIControlStateNormal];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     
