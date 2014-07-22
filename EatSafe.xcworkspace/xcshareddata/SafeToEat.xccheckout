@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7A38B5D1-5BDE-430C-9E8D-A845B00C41F6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SafeToEat</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>69BC0C34-5231-42F4-BE9E-9D7323C97D68</key>
+		<string>ssh://github.com/dkarter/EatSafe-iOS.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SafeToEat.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>69BC0C34-5231-42F4-BE9E-9D7323C97D68</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/dkarter/EatSafe-iOS.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>69BC0C34-5231-42F4-BE9E-9D7323C97D68</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>69BC0C34-5231-42F4-BE9E-9D7323C97D68</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SafeToEat</string>
+		</dict>
+	</array>
+</dict>
+</plist>
