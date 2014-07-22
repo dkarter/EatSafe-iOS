@@ -156,15 +156,11 @@ bool useLocation = YES;
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
-
-    [self searchRestaurantsByString:searchBar.text
-                         coordinate:self.locationManager.lastLocation.coordinate];
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    
-    [self searchRestaurantsByString:searchBar.text
-                         coordinate:self.locationManager.lastLocation.coordinate];
+    //add auto complete code here with just suggestion text - otherwise will overload the server
 }
 
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
@@ -189,20 +185,14 @@ bool useLocation = YES;
 
 
 
-- (IBAction)locationButtonTapped:(UIBarButtonItem *)sender {
-    if (useLocation) {
-        [self.locationButton setTintColor:[UIColor whiteColor]];
-        [self.locationManager startUpdatingLocation];
-        useLocation = NO;
-    } else {
-        [self.locationButton setTintColor:[UIColor darkGrayColor]];
-        useLocation = YES;
-    }
-
-}
 
 - (void)didRecieveLocationUpdate:(CLLocation *)location {
-    [self getRestaurantsByCoordinate:location.coordinate];
+    if ([self.searchBar.text isEqualToString:@""]) {
+        [self getRestaurantsByCoordinate:location.coordinate];
+    } else {
+        [self searchRestaurantsByString:self.searchBar.text coordinate:location.coordinate];
+    }
+
     [self.locationManager stopUpdatingLocation];
 }
 
@@ -282,9 +272,14 @@ bool useLocation = YES;
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        self.searchResults = [NSArray arrayWithArray: responseObject];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSONArray) {
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (NSDictionary *JSON in JSONArray) {
+            Restaurant *tempRestaurant = [[Restaurant alloc] initWithJSONObject:JSON];
+            [tempArray addObject:tempRestaurant];
+        }
+
+        self.searchResults = [NSArray arrayWithArray: tempArray];
         [self.searchResultsTableView reloadData];
         [hud hide:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B7E020BC18C506260016C912"
-               BuildableName = "SafeToEat.app"
-               BlueprintName = "SafeToEat"
+               BuildableName = "EatSafe.app"
+               BlueprintName = "EatSafe"
                ReferencedContainer = "container:SafeToEat.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,7 +34,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B7E020DD18C506260016C912"
                BuildableName = "SafeToEatTests.xctest"
-               BlueprintName = "SafeToEatTests"
+               BlueprintName = "EatSafeTests"
                ReferencedContainer = "container:SafeToEat.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B7E020BC18C506260016C912"
-            BuildableName = "SafeToEat.app"
-            BlueprintName = "SafeToEat"
+            BuildableName = "EatSafe.app"
+            BlueprintName = "EatSafe"
             ReferencedContainer = "container:SafeToEat.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B7E020BC18C506260016C912"
-            BuildableName = "SafeToEat.app"
-            BlueprintName = "SafeToEat"
+            BuildableName = "EatSafe.app"
+            BlueprintName = "EatSafe"
             ReferencedContainer = "container:SafeToEat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -89,8 +89,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B7E020BC18C506260016C912"
-            BuildableName = "SafeToEat.app"
-            BlueprintName = "SafeToEat"
+            BuildableName = "EatSafe.app"
+            BlueprintName = "EatSafe"
             ReferencedContainer = "container:SafeToEat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

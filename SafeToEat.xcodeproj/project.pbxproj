@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B71A975E197745C300FAC497 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71A975D197745C300FAC497 /* MapKit.framework */; };
 		B71A97611977560D00FAC497 /* HealthInspection.m in Sources */ = {isa = PBXBuildFile; fileRef = B71A97601977560D00FAC497 /* HealthInspection.m */; };
 		B71A976519775F6E00FAC497 /* InspectionListDataSourceDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B71A976419775F6E00FAC497 /* InspectionListDataSourceDelegate.m */; };
 		B71A976E1978FF8200FAC497 /* InspectionDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B71A976D1978FF8200FAC497 /* InspectionDetailsTableViewController.m */; };
@@ -49,7 +48,6 @@
 
 /* Begin PBXFileReference section */
 		018F2BFE6CAD4E24A7A1C689 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B71A975D197745C300FAC497 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B71A975F1977560D00FAC497 /* HealthInspection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HealthInspection.h; path = Models/HealthInspection.h; sourceTree = "<group>"; };
 		B71A97601977560D00FAC497 /* HealthInspection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HealthInspection.m; path = Models/HealthInspection.m; sourceTree = "<group>"; };
 		B71A976319775F6E00FAC497 /* InspectionListDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InspectionListDataSourceDelegate.h; path = DataSourceDelegates/InspectionListDataSourceDelegate.h; sourceTree = "<group>"; };
@@ -72,7 +70,7 @@
 		B7C3CD5F1973521A00126C4C /* StringHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringHelpers.h; path = Helpers/StringHelpers.h; sourceTree = "<group>"; };
 		B7C3CD601973521A00126C4C /* StringHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringHelpers.m; path = Helpers/StringHelpers.m; sourceTree = "<group>"; };
 		B7C3CD6219737FC200126C4C /* default (1).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "default (1).gpx"; sourceTree = "<group>"; };
-		B7E020BD18C506260016C912 /* SafeToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeToEat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7E020BD18C506260016C912 /* SafeToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = SafeToEat.app; path = EatSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E020C018C506260016C912 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B7E020C218C506260016C912 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B7E020C418C506260016C912 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -101,7 +99,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B71A975E197745C300FAC497 /* MapKit.framework in Frameworks */,
 				B7E020F818C509260016C912 /* CoreLocation.framework in Frameworks */,
 				B7E020C318C506260016C912 /* CoreGraphics.framework in Frameworks */,
 				B7E020C518C506260016C912 /* UIKit.framework in Frameworks */,
@@ -195,7 +192,6 @@
 		B7E020BF18C506260016C912 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B71A975D197745C300FAC497 /* MapKit.framework */,
 				B7E020F718C509260016C912 /* CoreLocation.framework */,
 				B7E020F518C506DD0016C912 /* MobileCoreServices.framework */,
 				B7E020C018C506260016C912 /* Foundation.framework */,
@@ -258,9 +254,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B7E020BC18C506260016C912 /* SafeToEat */ = {
+		B7E020BC18C506260016C912 /* EatSafe */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B7E020EF18C506260016C912 /* Build configuration list for PBXNativeTarget "SafeToEat" */;
+			buildConfigurationList = B7E020EF18C506260016C912 /* Build configuration list for PBXNativeTarget "EatSafe" */;
 			buildPhases = (
 				8544B853F74B46C28D70AFF7 /* Check Pods Manifest.lock */,
 				B7E020B918C506260016C912 /* Sources */,
@@ -272,14 +268,14 @@
 			);
 			dependencies = (
 			);
-			name = SafeToEat;
+			name = EatSafe;
 			productName = SafeToEat;
 			productReference = B7E020BD18C506260016C912 /* SafeToEat.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B7E020DD18C506260016C912 /* SafeToEatTests */ = {
+		B7E020DD18C506260016C912 /* EatSafeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B7E020F218C506260016C912 /* Build configuration list for PBXNativeTarget "SafeToEatTests" */;
+			buildConfigurationList = B7E020F218C506260016C912 /* Build configuration list for PBXNativeTarget "EatSafeTests" */;
 			buildPhases = (
 				B7E020DA18C506260016C912 /* Sources */,
 				B7E020DB18C506260016C912 /* Frameworks */,
@@ -290,7 +286,7 @@
 			dependencies = (
 				B7E020E418C506260016C912 /* PBXTargetDependency */,
 			);
-			name = SafeToEatTests;
+			name = EatSafeTests;
 			productName = SafeToEatTests;
 			productReference = B7E020DE18C506260016C912 /* SafeToEatTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -305,6 +301,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = SpiralTech;
 				TargetAttributes = {
+					B7E020BC18C506260016C912 = {
+						DevelopmentTeam = D94NBEU3NX;
+					};
 					B7E020DD18C506260016C912 = {
 						TestTargetID = B7E020BC18C506260016C912;
 					};
@@ -323,8 +322,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B7E020BC18C506260016C912 /* SafeToEat */,
-				B7E020DD18C506260016C912 /* SafeToEatTests */,
+				B7E020BC18C506260016C912 /* EatSafe */,
+				B7E020DD18C506260016C912 /* EatSafeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -418,7 +417,7 @@
 /* Begin PBXTargetDependency section */
 		B7E020E418C506260016C912 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B7E020BC18C506260016C912 /* SafeToEat */;
+			target = B7E020BC18C506260016C912 /* EatSafe */;
 			targetProxy = B7E020E318C506260016C912 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -527,6 +526,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SafeToEat/SafeToEat-Prefix.pch";
 				INFOPLIST_FILE = "SafeToEat/SafeToEat-Info.plist";
@@ -542,6 +542,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SafeToEat/SafeToEat-Prefix.pch";
 				INFOPLIST_FILE = "SafeToEat/SafeToEat-Info.plist";
@@ -603,7 +604,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B7E020EF18C506260016C912 /* Build configuration list for PBXNativeTarget "SafeToEat" */ = {
+		B7E020EF18C506260016C912 /* Build configuration list for PBXNativeTarget "EatSafe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B7E020F018C506260016C912 /* Debug */,
@@ -612,7 +613,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B7E020F218C506260016C912 /* Build configuration list for PBXNativeTarget "SafeToEatTests" */ = {
+		B7E020F218C506260016C912 /* Build configuration list for PBXNativeTarget "EatSafeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B7E020F318C506260016C912 /* Debug */,
