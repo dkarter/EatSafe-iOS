@@ -11,6 +11,8 @@
 
 #import "SafeToEatViewController.h"
 #import "SearchViewController.h"
+#import <Reachability/Reachability.h>
+
 
 @interface SafeToEatViewController ()
 
@@ -27,8 +29,8 @@
     [super viewDidLoad];
     
     
-
 }
+
 
 - (void)didReceiveMemoryWarning
 {

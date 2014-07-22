@@ -18,21 +18,22 @@
 @property (strong, nonatomic) NSURL *profilePictureURL;
 @property (strong, nonatomic) NSURL *yelpURL;
 @property (strong, nonatomic) NSArray *inspectionList;
-
 @property (nonatomic) BOOL isNew;
-@property (nonatomic) float yelpRating;
-@property (nonatomic) int failures;
-@property (nonatomic) int complaints;
-@property (nonatomic) int inspectionCount;
-@property (nonatomic) float distance;
-@property (nonatomic) float longitude;
-@property (nonatomic) float latitude;
+@property (strong, nonatomic) NSNumber *yelpRating;
+@property (strong, nonatomic) NSNumber *failures;
+@property (strong, nonatomic) NSNumber *complaints;
+@property (strong, nonatomic) NSNumber *inspectionCount;
+@property (strong, nonatomic) NSNumber *distance;
+@property (strong, nonatomic) NSNumber *longitude;
+@property (strong, nonatomic) NSNumber *latitude;
+@property (strong, nonatomic) NSNumber *yelpReviewCount;
+@property (strong, nonatomic) NSString *phone;
 
 //readonly getters
 @property (strong, nonatomic, readonly) NSString *failedInspectionsString;
 @property (strong, nonatomic, readonly) NSString *verdictString;
-@property (strong, nonatomic, readonly) UIColor *ratingColor;
-@property (strong, nonatomic, readonly) UIImage *yelpRatingImage;
+@property (strong, nonatomic, readonly) UIColor  *ratingColor;
+@property (strong, nonatomic, readonly) UIImage  *yelpRatingImage;
 @property (strong, nonatomic, readonly) NSString *distanceString;
 
 //initializers

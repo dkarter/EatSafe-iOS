@@ -12,6 +12,7 @@
 #import "Restaurant.h"
 #import "FontAwesomeKit/FontAwesomeKit.h"
 #import "StringHelpers.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface SearchViewController ()
 
@@ -144,7 +145,7 @@ bool useLocation = YES;
 
     RestaurantTableViewController *rtvc = [self.storyboard instantiateViewControllerWithIdentifier:@"restaurantTableView"];
     Restaurant *selectedRestaurant = self.searchResults[indexPath.row];
-    rtvc.restaurantId = selectedRestaurant.restaurantId;
+    rtvc.restaurant = selectedRestaurant;
 
     
     [self.navigationController pushViewController:rtvc animated:YES];
@@ -208,6 +209,11 @@ bool useLocation = YES;
 #pragma mark - APICalls
 
 - (void) getRestaurantsByCoordinate: (CLLocationCoordinate2D)coordinate {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"Loading";
+
+
     NSString *restaurantURL = @"%@/near?lat=%f&long=%f&d=%d";
     
     NSString *urlString = [NSString stringWithFormat:restaurantURL,
@@ -236,7 +242,7 @@ bool useLocation = YES;
         searchResults = [NSArray arrayWithArray:tempArray];
         
         [self.searchResultsTableView reloadData];
-        
+        [hud hide:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error cannot access server at this time."
                                                             message:[error localizedDescription]
@@ -244,8 +250,9 @@ bool useLocation = YES;
                                                   cancelButtonTitle:@"Ok"
                                                   otherButtonTitles:nil];
         [alertView show];
+        [hud hide:YES];
     }];
-    
+
     [operation start];
     
 }
@@ -253,6 +260,9 @@ bool useLocation = YES;
 
 - (void) searchRestaurantsByString: (NSString *)searchString
                         coordinate: (CLLocationCoordinate2D)coordinate {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"Searching";
     NSString *restaurantURL = @"%@/instant?query=%@&lat=%f&long=%f&d=%d";
     
     NSString *urlString = [NSString stringWithFormat:restaurantURL,
@@ -276,7 +286,7 @@ bool useLocation = YES;
         
         self.searchResults = [NSArray arrayWithArray: responseObject];
         [self.searchResultsTableView reloadData];
-        
+        [hud hide:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error cannot access server at this time."
                                                             message:[error localizedDescription]
@@ -284,6 +294,7 @@ bool useLocation = YES;
                                                   cancelButtonTitle:@"Ok"
                                                   otherButtonTitles:nil];
         [alertView show];
+        [hud hide:YES];
     }];
     
     [operation start];

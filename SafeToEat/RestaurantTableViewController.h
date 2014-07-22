@@ -16,7 +16,6 @@
 @property (strong, nonatomic) Restaurant *restaurant;
 @property (strong, nonatomic) NSString *restaurantNameString;
 @property (strong, nonatomic) NSString *restaurantAddressString;
-@property (strong, nonatomic) NSString *restaurantId;
 @property (strong, nonatomic) CLLocation *location;
 
 @end

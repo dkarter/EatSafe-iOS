@@ -25,14 +25,22 @@
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    HealthInspection *currentInspection = self.inspections[indexPath.row];
     
     //get custom cell controls using tags
     UILabel *dateLabel = (UILabel *)[cell.contentView viewWithTag:10];
-    //UILabel *iconLable =  (UILabel *)[cell.contentView viewWithTag:20];
+    UILabel *iconLabel =  (UILabel *)[cell.contentView viewWithTag:20];
+    UILabel *inspectionTypeLabel =  (UILabel *)[cell.contentView viewWithTag:30];
     
-    dateLabel.text = @"Pizza!";//[NSString stringWithFormat:@"%@", [NSDateFormatter localizedStringFromDate:[(HealthInspection *)self.inspections[indexPath.row] date]
-                       //                                                               dateStyle:NSDateFormatterShortStyle
-                         //                                                             timeStyle:NSDateFormatterNoStyle]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    
+    dateLabel.text = [dateFormatter stringFromDate:currentInspection.date];
+    
+    inspectionTypeLabel.text = currentInspection.inspectionType;
+    
+    iconLabel.attributedText = currentInspection.inspectionResultIcon;
+    [iconLabel setBackgroundColor:currentInspection.inspectionResultColor];
     
     return cell;
 }

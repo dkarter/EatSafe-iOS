@@ -7,15 +7,57 @@
 //
 
 #import "SafeToEatAppDelegate.h"
+#import "ViewControllers/NoInternetViewController.h"
+#import <Reachability/Reachability.h>
 
-@implementation SafeToEatAppDelegate
+@implementation SafeToEatAppDelegate {
+    BOOL isShowingNoInternetConnectionScreen;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    
+    isShowingNoInternetConnectionScreen = NO;
+    [NSTimer scheduledTimerWithTimeInterval:3.0
+                                     target:self
+                                   selector:@selector(checkInternetConnection)
+                                   userInfo:nil
+                                    repeats:YES];
     return YES;
+
+    
 }
-							
+
+-(void)checkInternetConnection {
+    Reachability *r = [Reachability reachabilityWithHostname:kESHostName];
+    
+    NetworkStatus internetStatus = [r currentReachabilityStatus];
+    UIViewController *root = self.window.rootViewController;
+    
+    if ((internetStatus != ReachableViaWiFi) && (internetStatus != ReachableViaWWAN)) {
+        if (!isShowingNoInternetConnectionScreen) {
+
+            NoInternetViewController *nivc = [root.storyboard
+                                              instantiateViewControllerWithIdentifier:kESNoInternetView];
+            [root presentViewController:nivc animated:YES completion:nil];
+            isShowingNoInternetConnectionScreen = YES;
+        }
+        
+    } else if (isShowingNoInternetConnectionScreen) {
+        [root dismissViewControllerAnimated:YES completion:nil];
+        isShowingNoInternetConnectionScreen = NO;
+    }
+}
+
+- (void)reachabilityChanged {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"EatSafe Connection Error"
+                                                    message:@"Cannot connect to the internet, please check your internet connection."
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil, nil];
+    [alert show];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

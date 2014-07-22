@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "54651CFA0DED4AF1834D1D58"
-               BuildableName = "libPods-ECSlidingViewController.a"
-               BlueprintName = "Pods-ECSlidingViewController"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               BlueprintIdentifier = "B7E020BC18C506260016C912"
+               BuildableName = "SafeToEat.app"
+               BlueprintName = "SafeToEat"
+               ReferencedContainer = "container:SafeToEat.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,6 +29,15 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B7E020BC18C506260016C912"
+            BuildableName = "SafeToEat.app"
+            BlueprintName = "SafeToEat"
+            ReferencedContainer = "container:SafeToEat.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -38,8 +47,22 @@
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
-      allowLocationSimulation = "YES">
+      allowLocationSimulation = "NO">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B7E020BC18C506260016C912"
+            BuildableName = "SafeToEat.app"
+            BlueprintName = "SafeToEat"
+            ReferencedContainer = "container:SafeToEat.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
+         <AdditionalOption
+            key = "OBJC_PRINT_EXCEPTIONS"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
@@ -48,6 +71,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B7E020BC18C506260016C912"
+            BuildableName = "SafeToEat.app"
+            BlueprintName = "SafeToEat"
+            ReferencedContainer = "container:SafeToEat.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

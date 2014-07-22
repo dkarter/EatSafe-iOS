@@ -10,10 +10,11 @@
 		B71A975E197745C300FAC497 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71A975D197745C300FAC497 /* MapKit.framework */; };
 		B71A97611977560D00FAC497 /* HealthInspection.m in Sources */ = {isa = PBXBuildFile; fileRef = B71A97601977560D00FAC497 /* HealthInspection.m */; };
 		B71A976519775F6E00FAC497 /* InspectionListDataSourceDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B71A976419775F6E00FAC497 /* InspectionListDataSourceDelegate.m */; };
+		B71A976E1978FF8200FAC497 /* InspectionDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B71A976D1978FF8200FAC497 /* InspectionDetailsTableViewController.m */; };
+		B729F5DF197CA62E007E1248 /* NoInternetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B729F5DE197CA62E007E1248 /* NoInternetViewController.m */; };
 		B7A9C6C01918A4D500777A79 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A9C6BF1918A4D500777A79 /* Logo.png */; };
 		B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCE8195F716C00126C4C /* SearchViewController.m */; };
 		B7C3CCF1195FFE3200126C4C /* RestaurantTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */; };
-		B7C3CCF41960638D00126C4C /* InspectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCF31960638D00126C4C /* InspectionsTableViewController.m */; };
 		B7C3CCF71969FB6400126C4C /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCF61969FB6400126C4C /* Restaurant.m */; };
 		B7C3CCFD196E13C600126C4C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCFC196E13C600126C4C /* LocationManager.m */; };
 		B7C3CD611973521A00126C4C /* StringHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CD601973521A00126C4C /* StringHelpers.m */; };
@@ -53,14 +54,16 @@
 		B71A97601977560D00FAC497 /* HealthInspection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HealthInspection.m; path = Models/HealthInspection.m; sourceTree = "<group>"; };
 		B71A976319775F6E00FAC497 /* InspectionListDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InspectionListDataSourceDelegate.h; path = DataSourceDelegates/InspectionListDataSourceDelegate.h; sourceTree = "<group>"; };
 		B71A976419775F6E00FAC497 /* InspectionListDataSourceDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InspectionListDataSourceDelegate.m; path = DataSourceDelegates/InspectionListDataSourceDelegate.m; sourceTree = "<group>"; };
+		B71A976C1978FF8200FAC497 /* InspectionDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InspectionDetailsTableViewController.h; path = ViewControllers/InspectionDetailsTableViewController.h; sourceTree = "<group>"; };
+		B71A976D1978FF8200FAC497 /* InspectionDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InspectionDetailsTableViewController.m; path = ViewControllers/InspectionDetailsTableViewController.m; sourceTree = "<group>"; };
+		B729F5DD197CA62E007E1248 /* NoInternetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoInternetViewController.h; path = ViewControllers/NoInternetViewController.h; sourceTree = "<group>"; };
+		B729F5DE197CA62E007E1248 /* NoInternetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoInternetViewController.m; path = ViewControllers/NoInternetViewController.m; sourceTree = "<group>"; };
 		B7A9C6BF1918A4D500777A79 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		B7C3CCE7195F716C00126C4C /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		B7C3CCE8195F716C00126C4C /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		B7C3CCEA195FA15100126C4C /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		B7C3CCEF195FFE3200126C4C /* RestaurantTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantTableViewController.h; sourceTree = "<group>"; };
 		B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantTableViewController.m; sourceTree = "<group>"; };
-		B7C3CCF21960638D00126C4C /* InspectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InspectionsTableViewController.h; sourceTree = "<group>"; };
-		B7C3CCF31960638D00126C4C /* InspectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InspectionsTableViewController.m; sourceTree = "<group>"; };
 		B7C3CCF51969FB6400126C4C /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
 		B7C3CCF61969FB6400126C4C /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		B7C3CCF9196A445C00126C4C /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -151,8 +154,10 @@
 				B7C3CCE8195F716C00126C4C /* SearchViewController.m */,
 				B7C3CCEF195FFE3200126C4C /* RestaurantTableViewController.h */,
 				B7C3CCF0195FFE3200126C4C /* RestaurantTableViewController.m */,
-				B7C3CCF21960638D00126C4C /* InspectionsTableViewController.h */,
-				B7C3CCF31960638D00126C4C /* InspectionsTableViewController.m */,
+				B71A976C1978FF8200FAC497 /* InspectionDetailsTableViewController.h */,
+				B71A976D1978FF8200FAC497 /* InspectionDetailsTableViewController.m */,
+				B729F5DD197CA62E007E1248 /* NoInternetViewController.h */,
+				B729F5DE197CA62E007E1248 /* NoInternetViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -387,13 +392,14 @@
 			files = (
 				B7C3CCFD196E13C600126C4C /* LocationManager.m in Sources */,
 				B7E020CD18C506260016C912 /* main.m in Sources */,
+				B729F5DF197CA62E007E1248 /* NoInternetViewController.m in Sources */,
 				B7C3CCF71969FB6400126C4C /* Restaurant.m in Sources */,
 				B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */,
+				B71A976E1978FF8200FAC497 /* InspectionDetailsTableViewController.m in Sources */,
 				B71A976519775F6E00FAC497 /* InspectionListDataSourceDelegate.m in Sources */,
 				B7E020D718C506260016C912 /* SafeToEatViewController.m in Sources */,
 				B7C3CCF1195FFE3200126C4C /* RestaurantTableViewController.m in Sources */,
 				B7C3CD611973521A00126C4C /* StringHelpers.m in Sources */,
-				B7C3CCF41960638D00126C4C /* InspectionsTableViewController.m in Sources */,
 				B7E020D118C506260016C912 /* SafeToEatAppDelegate.m in Sources */,
 				B71A97611977560D00FAC497 /* HealthInspection.m in Sources */,
 			);
@@ -524,7 +530,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SafeToEat/SafeToEat-Prefix.pch";
 				INFOPLIST_FILE = "SafeToEat/SafeToEat-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -539,7 +545,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SafeToEat/SafeToEat-Prefix.pch";
 				INFOPLIST_FILE = "SafeToEat/SafeToEat-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

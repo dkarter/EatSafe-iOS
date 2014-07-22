@@ -33,11 +33,11 @@
         operation.responseSerializer = [AFJSONResponseSerializer serializer];
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
-
+            
             [self fillFromJSON:JSON];
             
             [[NSNotificationCenter defaultCenter]
-                postNotificationName:@"initWithJSONWithIdFinishedLoading"
+                postNotificationName:@"initRestaurantWithJSONWithIdFinishedLoading"
                               object:nil];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -66,13 +66,15 @@
     self.addressLine2       = JSON[@"address2"];
     self.eatSafeRating      = JSON[@"rating"];
     self.isNew              = [JSON[@"new"] boolValue];
-    self.yelpRating         = [[JSON[@"yelp_rating"] class] isSubclassOfClass:[NSNull class]] ? 0.0f : [JSON[@"yelp_rating"] floatValue];
-    self.distance           = [JSON[@"dist"] floatValue];
-    self.failures           = [JSON[@"fails"] intValue];
-    self.complaints         = [JSON[@"complaints"] intValue];
-    self.inspectionCount    = [JSON[@"count"] intValue];
-    self.longitude          = [JSON[@"long"] floatValue];
-    self.latitude           = [JSON[@"lat"] floatValue];
+    self.yelpRating         = JSON[@"yelp_rating"];
+    self.distance           = JSON[@"dist"];
+    self.failures           = JSON[@"fails"];
+    self.complaints         = JSON[@"complaints"];
+    self.inspectionCount    = JSON[@"count"];
+    self.longitude          = JSON[@"long"];
+    self.latitude           = JSON[@"lat"];
+    self.phone              = JSON[@"phone"];
+    self.yelpReviewCount    = JSON[@"yelp_review_count"];
     
     //load individual inspections into array of healthinspection objects
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
@@ -103,7 +105,7 @@
 }
 
 - (NSString *)failedInspectionsString {
-    return [NSString stringWithFormat:@"%d/%d", self.failures, self.inspectionCount];
+    return [NSString stringWithFormat:@"%d/%d", [self.failures intValue], [self.inspectionCount intValue]];
 }
 
 - (NSString *)verdictString {
@@ -121,12 +123,12 @@
 
 - (UIImage *)yelpRatingImage {
     //return gray boxes with no rating
-    UIImage *result = [UIImage imageNamed:[NSString stringWithFormat:@"yelp_%f", self.yelpRating]];
+    UIImage *result = [UIImage imageNamed:[NSString stringWithFormat:@"yelp_%f", [self.yelpRating floatValue]]];
     return result;
 }
 
 - (NSString *)distanceString {
-    return [NSString stringWithFormat:@"%0.1f miles", self.distance];
+    return [NSString stringWithFormat:@"%0.1f miles", [self.distance floatValue]];
 }
 
 @end

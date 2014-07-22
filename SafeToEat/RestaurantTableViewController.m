@@ -9,7 +9,8 @@
 #import "RestaurantTableViewController.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
-#import "InspectionsTableViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "ViewControllers/InspectionDetailsTableViewController.h"
 
 @interface RestaurantTableViewController ()
 
@@ -24,36 +25,36 @@
 @property (weak, nonatomic) IBOutlet UILabel *complaintsLbl;
 @property (weak, nonatomic) IBOutlet UITableViewCell *verdictCell;
 @property (weak, nonatomic) IBOutlet UITableView *inspectionsTable;
+@property (weak, nonatomic) IBOutlet UILabel *yelpReviewCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+
 
 @end
 
 @implementation RestaurantTableViewController {
     InspectionListDataSourceDelegate *inspectionsListDataSource;
+    MBProgressHUD *hud;
 }
 
-
-//- (id)initWithStyle:(UITableViewStyle)style
-//{
-//    self = [super initWithStyle:style];
-//    if (self) {
-//        // Custom initialization
-//    }
-//    return self;
-//}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"Loading";
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(dataRetrieved)
-                                                 name:@"initWithJSONWithIdFinishedLoading"
+                                                 name:@"initRestaurantWithJSONWithIdFinishedLoading"
                                                object:nil];
     
-    self.restaurant = [[Restaurant alloc] initWithJSONWithId:self.restaurantId];
+    [self bindData];
+    
+    self.restaurant = [[Restaurant alloc] initWithJSONWithId:self.restaurant.restaurantId];
 
-    self.restaurantName.text = self.restaurantNameString;
-    self.address1Label.text = self.restaurantAddressString;
+    
 
 }
 
@@ -63,24 +64,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
-
-
-- (void)dataRetrieved {
+- (void)bindData {
     self.restaurantName.text = self.restaurant.name;
     self.address1Label.text = self.restaurant.addressLine1;
     self.address2Label.text = self.restaurant.addressLine2;
+//    self.phoneLabel.text = self.restaurant.phone;
     self.failedInspectionsLabel.text = self.restaurant.failedInspectionsString;
     self.letterGradeLabel.text = self.restaurant.eatSafeRating;
-
+    
     self.verdictLabel.text = self.restaurant.verdictString;
     [self.verdictCell.contentView setBackgroundColor:self.restaurant.ratingColor];
-
-    self.complaintsLbl.text = [NSString stringWithFormat:@"%d", self.restaurant.complaints];
-
-    [self.yelpRatingImageView setImage:self.restaurant.yelpRatingImage];
     
+    self.complaintsLbl.text = [NSString stringWithFormat:@"%d", [self.restaurant.complaints intValue]];
+    
+    [self.yelpRatingImageView setImage:self.restaurant.yelpRatingImage];
+//    self.yelpReviewCountLabel.text = [NSString stringWithFormat:@"(%d)", [self.restaurant.yelpReviewCount intValue]];
+
     UIImage *placeholderImage = [UIImage imageNamed:@"BusinessPlaceholder"];
     
     __weak UIImageView *weakImage = self.restaurantLogoImageView;
@@ -93,10 +92,19 @@
                                                      [weakImage setNeedsLayout];
                                                  } failure:nil];
 
+}
+
+
+
+- (void)dataRetrieved {
+    [self bindData];
+    //individual inspections table
     inspectionsListDataSource = [[InspectionListDataSourceDelegate alloc] init];
     inspectionsListDataSource.inspections = self.restaurant.inspectionList;
     [self.inspectionsTable setDataSource:inspectionsListDataSource];
     [self.inspectionsTable reloadData];
+    
+    [hud hide:YES];
 }
 
 
@@ -113,15 +121,18 @@
 }
 
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"InspectionDetailSegue"]) {
+        InspectionDetailsTableViewController *dest = segue.destinationViewController;
+        HealthInspection *selectedInspection = self.restaurant.inspectionList[[self.inspectionsTable indexPathForSelectedRow].row];
+        dest.inspectionData = selectedInspection;
+    }
 }
-*/
+
 
 @end

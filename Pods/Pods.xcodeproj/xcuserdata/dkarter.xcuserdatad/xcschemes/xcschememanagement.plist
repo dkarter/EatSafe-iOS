@@ -9,17 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-ECSlidingViewController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-FontAwesomeKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Reachability.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,27 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>25A6B2D2B7794B9C8BC8F275</key>
+		<key>32357E20315F46BAA9AAC782</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>54651CFA0DED4AF1834D1D58</key>
+		<key>9911314E4B02443EBE92394F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8F8417F42A83434B988CEEE4</key>
+		<key>B70131D2B8744E6F97902CD0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F01E9837F2AA4E3D9CDA197F</key>
+		<key>C381B61900544F51A11F4C79</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FD05EE88CAE9491098BE311F</key>
+		<key>C59B45354C2D4F09A9EA1B14</key>
 		<dict>
 			<key>primary</key>
 			<true/>
