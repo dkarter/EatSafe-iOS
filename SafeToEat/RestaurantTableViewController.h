@@ -12,7 +12,7 @@
 #import "HealthInspection.h"
 #import "InspectionListDataSourceDelegate.h"
 
-@interface RestaurantTableViewController : UITableViewController
+@interface RestaurantTableViewController : UITableViewController <UIActionSheetDelegate>
 @property (strong, nonatomic) Restaurant *restaurant;
 @property (strong, nonatomic) NSString *restaurantNameString;
 @property (strong, nonatomic) NSString *restaurantAddressString;

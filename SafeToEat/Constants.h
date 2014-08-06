@@ -9,7 +9,7 @@
 #ifndef SafeToEat_Constants_h
 #define SafeToEat_Constants_h
 
-#define kESBaseURL @"http://eatsafechicago.com:49153"
+#define kESBaseURL @"http://eatsafechicago.com"
 //#define kESBaseURL @"http://eatsafe.ngrok.com"
 //#define kESBaseURL @"http://eatsafe2.ngrok.com"
 #define kESHostName @"eatsafechicago.com"

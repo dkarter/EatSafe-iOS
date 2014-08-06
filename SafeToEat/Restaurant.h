@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface Restaurant : NSObject
 
@@ -23,11 +24,13 @@
 @property (strong, nonatomic) NSNumber *failures;
 @property (strong, nonatomic) NSNumber *complaints;
 @property (strong, nonatomic) NSNumber *inspectionCount;
-@property (strong, nonatomic) NSNumber *distance;
+@property (strong, nonatomic) NSString *distance;
 @property (strong, nonatomic) NSNumber *longitude;
 @property (strong, nonatomic) NSNumber *latitude;
 @property (strong, nonatomic) NSNumber *yelpReviewCount;
 @property (strong, nonatomic) NSString *phone;
+@property (nonatomic) BOOL noRecentFails;
+
 
 //readonly getters
 @property (strong, nonatomic, readonly) NSString *failedInspectionsString;
@@ -35,9 +38,27 @@
 @property (strong, nonatomic, readonly) UIColor  *ratingColor;
 @property (strong, nonatomic, readonly) UIImage  *yelpRatingImage;
 @property (strong, nonatomic, readonly) NSString *distanceString;
+@property (strong, nonatomic, readonly) NSString *formattedPhoneNumber;
 
 //initializers
 - (id)initWithJSONWithId:(NSString *)restaurantId;
 - (id)initWithJSONObject:(NSDictionary *)JSON;
+
+//callbacks
+typedef void (^RetaurantListCompletionBlock)(NSArray *restaurants);
+
+//static
++ (void) getRestaurantsByCoordinate: (CLLocationCoordinate2D)coordinate
+                         completion:(RetaurantListCompletionBlock)completion;
+
++ (void) getRestaurantsByCoordinate: (CLLocationCoordinate2D)coordinate
+                           distance:(int)distance
+                                max:(int)max
+                         completion:(RetaurantListCompletionBlock)completion;
+
+
++ (void) searchRestaurantsByString: (NSString *)searchString
+                        coordinate: (CLLocationCoordinate2D)coordinate
+                        completion:(RetaurantListCompletionBlock)completion;;
 
 @end

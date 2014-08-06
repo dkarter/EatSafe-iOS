@@ -13,15 +13,19 @@
 #import "FontAwesomeKit/FontAwesomeKit.h"
 #import "StringHelpers.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface SearchViewController ()
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) LocationManager *locationManager;
 @property (strong, nonatomic) id<UIApplicationDelegate> appDelegate;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *mapButton;
 @end
 
-@implementation SearchViewController
+@implementation SearchViewController {
+    MBProgressHUD *hud;
+}
 
 bool useLocation = YES;
 @synthesize searchResults;
@@ -43,6 +47,15 @@ bool useLocation = YES;
 
     }
     
+    FAKIcon *mapIcon = [FAKIonIcons mapIconWithSize:25];
+    self.mapButton.title = @"";
+    self.mapButton.image = [mapIcon imageWithSize:CGSizeMake(25, 25)];
+
+    
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil]
+          setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}
+          forState:UIControlStateNormal];
+    
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     
     [refreshControl addTarget:self
@@ -50,10 +63,14 @@ bool useLocation = YES;
              forControlEvents:UIControlEventValueChanged];
     
     [self.searchResultsTableView addSubview:refreshControl];
-    UIImage *logo = [UIImage imageNamed:@"LogoNavBar"];
+
+    //add logo to navigation controller top bar
+    UIImageView *navigationImage=[[UIImageView alloc]initWithFrame:CGRectMake(0, -5, 106, 30)];
+    navigationImage.image=[UIImage imageNamed:@"LogoNavBar"];
     
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:logo];
-    
+    UIImageView *workaroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -5, 106, 30)];
+    [workaroundImageView addSubview:navigationImage];
+    self.navigationItem.titleView=workaroundImageView;
     
 }
 
@@ -72,7 +89,6 @@ bool useLocation = YES;
     UILabel *addressLabel =  (UILabel *)[cell.contentView viewWithTag:20];
     UIImageView *restaurantImage = (UIImageView *)[cell.contentView viewWithTag:30];
     UILabel *ratingLabel =  (UILabel *)[cell.contentView viewWithTag:40];
-    UIImageView *ratingImage = (UIImageView *)[cell.contentView viewWithTag:50];
     UILabel *distanceLabel =  (UILabel *)[cell.contentView viewWithTag:60];
     
 
@@ -95,14 +111,20 @@ bool useLocation = YES;
                                             failure:nil];
         }
         
-        [ratingImage setImage:currentRestaurant.yelpRatingImage];
-        
         titleLabel.text = currentRestaurant.name;
         addressLabel.text = currentRestaurant.addressLine1;
         distanceLabel.text = currentRestaurant.distanceString;
-        ratingLabel.text = currentRestaurant.eatSafeRating;
         
-        [ratingLabel setBackgroundColor:currentRestaurant.ratingColor];
+        if (currentRestaurant.noRecentFails) {
+            FAKIcon *checkMarkIcon = [FAKIonIcons checkmarkCircledIconWithSize:30];
+            ratingLabel.attributedText = [checkMarkIcon attributedString];
+        } else {
+            FAKIcon *checkMarkIcon = [FAKIonIcons closeCircledIconWithSize:30];
+            ratingLabel.attributedText = [checkMarkIcon attributedString];
+        }
+
+        
+        [ratingLabel setTextColor:currentRestaurant.ratingColor];
 
     }
 
@@ -120,7 +142,10 @@ bool useLocation = YES;
 
 - (void)handleLocationBasedRefresh:(UIRefreshControl *)sender {
     [self.locationManager startUpdatingLocation];
-    [sender endRefreshing];
+    if (sender != nil) {
+        [sender endRefreshing];
+    }
+
 }
 
 
@@ -137,9 +162,6 @@ bool useLocation = YES;
     
     [self.navigationController pushViewController:rtvc animated:YES];
 }
-
-
-
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
@@ -165,122 +187,45 @@ bool useLocation = YES;
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    [searchBar resignFirstResponder];
-    [searchBar setText:@""];
-}
-
-
-
-
-
-- (void)didRecieveLocationUpdate:(CLLocation *)location {
-    if ([self.searchBar.text isEqualToString:@""]) {
-        [self getRestaurantsByCoordinate:location.coordinate];
-    } else {
-        [self searchRestaurantsByString:self.searchBar.text coordinate:location.coordinate];
+    if ([searchBar canResignFirstResponder]) {
+        [searchBar resignFirstResponder];
     }
 
+    [searchBar setText:@""];
+    [self handleLocationBasedRefresh:nil];
+}
+
+-(void)didRecieveRestaurantList:(NSArray *)restaurants {
+    self.searchResults = restaurants;
+    [self.searchResultsTableView reloadData];
+    if (hud != nil) {
+        [hud hide:YES];
+    }
+}
+
+- (void)didRecieveLocationUpdate:(CLLocation *)location {
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    
+    if ([self.searchBar.text isEqualToString:@""]) {
+        hud.labelText = @"Loading";
+        //[self getRestaurantsByCoordinate:location.coordinate];
+        [Restaurant getRestaurantsByCoordinate:location.coordinate
+                                    completion:^(NSArray *restaurants) {
+                                        [self didRecieveRestaurantList:restaurants];
+                                    }];
+
+    } else {
+        hud.labelText = @"Searching";
+        //[self searchRestaurantsByString:self.searchBar.text coordinate:location.coordinate];
+        [Restaurant searchRestaurantsByString:self.searchBar.text
+                                   coordinate:location.coordinate
+                                   completion:^(NSArray *restaurants) {
+                                       [self didRecieveRestaurantList:restaurants];
+                                   }];
+    }
+    
     [self.locationManager stopUpdatingLocation];
 }
-
-#pragma mark - APICalls
-
-- (void) getRestaurantsByCoordinate: (CLLocationCoordinate2D)coordinate {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = @"Loading";
-
-
-    NSString *restaurantURL = @"%@/near?lat=%f&long=%f&d=%d";
-    
-    NSString *urlString = [NSString stringWithFormat:restaurantURL,
-                           kESBaseURL,
-                           coordinate.latitude,
-                           coordinate.longitude,
-                           500];
-    
-    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSLog(@"url: %@", urlString);
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSONArray) {
-        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (NSDictionary *JSON in JSONArray) {
-            Restaurant *tempRestaurant = [[Restaurant alloc] initWithJSONObject:JSON];
-            [tempArray addObject:tempRestaurant];
-        }
-        
-        searchResults = [NSArray arrayWithArray:tempArray];
-        
-        [self.searchResultsTableView reloadData];
-        [hud hide:YES];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error cannot access server at this time."
-                                                            message:[error localizedDescription]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-        [alertView show];
-        [hud hide:YES];
-    }];
-
-    [operation start];
-    
-}
-
-
-- (void) searchRestaurantsByString: (NSString *)searchString
-                        coordinate: (CLLocationCoordinate2D)coordinate {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = @"Searching";
-    NSString *restaurantURL = @"%@/instant?query=%@&lat=%f&long=%f&d=%d";
-    
-    NSString *urlString = [NSString stringWithFormat:restaurantURL,
-                           kESBaseURL,
-                           searchString,
-                           coordinate.latitude,
-                           coordinate.longitude,
-                           500];
-    NSLog(@"%@", urlString);
-    
-    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSONArray) {
-        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (NSDictionary *JSON in JSONArray) {
-            Restaurant *tempRestaurant = [[Restaurant alloc] initWithJSONObject:JSON];
-            [tempArray addObject:tempRestaurant];
-        }
-
-        self.searchResults = [NSArray arrayWithArray: tempArray];
-        [self.searchResultsTableView reloadData];
-        [hud hide:YES];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error cannot access server at this time."
-                                                            message:[error localizedDescription]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-        [alertView show];
-        [hud hide:YES];
-    }];
-    
-    [operation start];
-}
-
 
 @end

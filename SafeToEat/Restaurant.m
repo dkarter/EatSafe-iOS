@@ -12,6 +12,104 @@
 
 @implementation Restaurant
 
++ (void) getRestaurantsByCoordinate: (CLLocationCoordinate2D)coordinate
+                         completion:(RetaurantListCompletionBlock)completion {
+    
+    return [Restaurant getRestaurantsByCoordinate:coordinate distance:500 max:30 completion:completion];
+
+}
+
++ (void) getRestaurantsByCoordinate: (CLLocationCoordinate2D)coordinate
+                           distance:(int)distance
+                                max:(int)max
+                         completion:(RetaurantListCompletionBlock)completion {
+    NSString *restaurantURL = @"%@/near?lat=%f&long=%f&radius=%d&max=%d";
+    NSString *urlString = [NSString stringWithFormat:restaurantURL,
+                           kESBaseURL,
+                           coordinate.latitude,
+                           coordinate.longitude,
+                           distance,
+                           max];
+    
+    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSONArray) {
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (NSDictionary *JSON in JSONArray) {
+            Restaurant *tempRestaurant = [[Restaurant alloc] initWithJSONObject:JSON];
+            [tempArray addObject:tempRestaurant];
+        }
+        
+        completion([NSArray arrayWithArray:tempArray]);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error cannot access server at this time."
+                                                            message:[error localizedDescription]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        completion(@[]);
+    }];
+    
+    [operation start];
+
+}
+
+
++ (void) searchRestaurantsByString: (NSString *)searchString
+                        coordinate: (CLLocationCoordinate2D)coordinate
+                        completion:(RetaurantListCompletionBlock)completion {
+    NSString *restaurantURL = @"%@/instant?query=%@&lat=%f&long=%f&d=%d";
+    
+    NSString *urlString = [NSString stringWithFormat:restaurantURL,
+                           kESBaseURL,
+                           searchString,
+                           coordinate.latitude,
+                           coordinate.longitude,
+                           500];
+    NSLog(@"%@", urlString);
+    
+    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSONArray) {
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (NSDictionary *JSON in JSONArray) {
+            Restaurant *tempRestaurant = [[Restaurant alloc] initWithJSONObject:JSON];
+            [tempArray addObject:tempRestaurant];
+        }
+        
+        completion([NSArray arrayWithArray:tempArray]);
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error cannot access server at this time."
+                                                            message:[error localizedDescription]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        completion(@[]);
+    }];
+    
+    [operation start];
+}
+
+
 
 - (id)init {
     self = [super init];
@@ -60,48 +158,48 @@
 }
 
 - (void)fillFromJSON:(NSDictionary *)JSON {
-    self.name               = JSON[@"name"];
-    self.restaurantId       = JSON[@"id"];
-    self.addressLine1       = JSON[@"address"];
-    self.addressLine2       = JSON[@"address2"];
-    self.eatSafeRating      = JSON[@"rating"];
-    self.isNew              = [JSON[@"new"] boolValue];
-    self.yelpRating         = JSON[@"yelp_rating"];
-    self.distance           = JSON[@"dist"];
-    self.failures           = JSON[@"fails"];
-    self.complaints         = JSON[@"complaints"];
-    self.inspectionCount    = JSON[@"count"];
-    self.longitude          = JSON[@"long"];
-    self.latitude           = JSON[@"lat"];
-    self.phone              = JSON[@"phone"];
-    self.yelpReviewCount    = JSON[@"yelp_review_count"];
-    
-    //load individual inspections into array of healthinspection objects
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    for (NSDictionary *inspectionsJSON in JSON[@"inspections"]) {
-        HealthInspection *tempInspection = [[HealthInspection alloc] initWithJSONObject:inspectionsJSON];
-        [tempArray addObject:tempInspection];
+    if (JSON && [JSON isKindOfClass:[NSDictionary class]] && [JSON count] > 0) {
+        self.name               = JSON[@"name"];
+        self.longitude          = JSON[@"long"];
+        self.latitude           = JSON[@"lat"];
+        self.restaurantId       = JSON[@"id"];
+        self.addressLine1       = JSON[@"address"];
+        //self.addressLine2       = JSON[@"address2"];
+        self.eatSafeRating      = JSON[@"rating"];
+        self.isNew              = [JSON[@"new"] boolValue]; // not really using this one
+        self.noRecentFails      = [JSON[@"no_recent_fails"] boolValue];
+        self.yelpRating         = JSON[@"yelp_rating"];
+        self.distance           = JSON[@"dist"];
+        self.failures           = JSON[@"fails"];
+        self.complaints         = JSON[@"complaints"];
+        self.inspectionCount    = JSON[@"count"];
+        self.phone              = [JSON[@"phone"] isKindOfClass:[NSNull class]] ? @"" : [JSON[@"phone"] stringValue];
+        self.yelpReviewCount    = JSON[@"yelp_review_count"];
+        
+        //load individual inspections into array of healthinspection objects
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (NSDictionary *inspectionsJSON in JSON[@"inspections"]) {
+            HealthInspection *tempInspection = [[HealthInspection alloc] initWithJSONObject:inspectionsJSON];
+            [tempArray addObject:tempInspection];
+        }
+        
+        self.inspectionList = [NSArray arrayWithArray:tempArray];
+        
+        
+        
+        if (![JSON[@"pic"] isEqualToString:@""]) {
+            self.profilePictureURL  = [NSURL URLWithString:JSON[@"pic"]];
+        } else {
+            self.profilePictureURL = nil;
+        }
     }
-    
-    self.inspectionList = [NSArray arrayWithArray:tempArray];
-    
-    
-    
-    if (![JSON[@"pic"] isEqualToString:@""]) {
-        self.profilePictureURL  = [NSURL URLWithString:JSON[@"pic"]];
-    } else {
-        self.profilePictureURL = nil;
-    }
-
 }
 
 - (UIColor *)ratingColor {
     float baseColor = 255.0f;
-    NSDictionary *gradeColorDictionary = @{@"A": [UIColor colorWithRed:57.0f/baseColor green:181.0f/baseColor blue:74.0f/baseColor alpha:1],
-    @"B": [UIColor colorWithRed:171.0f/baseColor green:219.0f/baseColor blue:69.0f/baseColor alpha:1],
-    @"C": [UIColor colorWithRed:245.0f/baseColor green:168.0f/baseColor blue:77.0f/baseColor alpha:1],
-    @"F": [UIColor colorWithRed:237.0f/baseColor green:28.0f/baseColor blue:36.0f/baseColor alpha:1]};
-    return gradeColorDictionary[self.eatSafeRating];
+    UIColor *passColor = [UIColor colorWithRed:57.0f/baseColor green:181.0f/baseColor blue:74.0f/baseColor alpha:1];
+    UIColor *failColor = [UIColor colorWithRed:237.0f/baseColor green:28.0f/baseColor blue:36.0f/baseColor alpha:1];
+    return self.noRecentFails ? passColor : failColor;
 }
 
 - (NSString *)failedInspectionsString {
@@ -128,7 +226,23 @@
 }
 
 - (NSString *)distanceString {
-    return [NSString stringWithFormat:@"%0.1f miles", [self.distance floatValue]];
+    return [NSString stringWithFormat:@"%@ miles", self.distance];
+}
+
+- (NSString *)formattedPhoneNumber {
+    if ([self.phone rangeOfString:@"-"].location == NSNotFound) {
+        @try {
+            NSString *areaCode = [self.phone substringWithRange:NSMakeRange(0, 3)];
+            NSString *part1 = [self.phone substringWithRange:NSMakeRange(3, 3)];
+            NSString *part2 = [self.phone substringWithRange:NSMakeRange(6, 4)];
+            return [NSString stringWithFormat:@"(%@) %@-%@", areaCode, part1, part2];
+        }
+        @catch (NSException *exception) {
+            return self.phone;
+        }
+    } else {
+        return self.phone;
+    }
 }
 
 @end

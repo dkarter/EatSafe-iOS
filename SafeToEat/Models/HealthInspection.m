@@ -29,7 +29,7 @@
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
             
             [self fillFromJSON:JSON];
-
+            
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"initInspectionWithJSONWithIdFinishedLoading"
              object:nil];
@@ -56,12 +56,12 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSDate *inspectionDate = [dateFormatter dateFromString:JSON[@"inspection_date"]];
-    
+
     self.date               = inspectionDate;
     self.inspectionId       = JSON[@"inspection_id"];
     self.inspectionResult   = JSON[@"inspection_results_num"];
     self.inspectionType     = JSON[@"inspection_type"];
-    self.fullText           = JSON[@"inspection_text"];
+    self.fullText           = [JSON[@"inspection_text"] isKindOfClass:[NSNull class]] ? @"" : JSON[@"inspection_text"];
 
 
 }

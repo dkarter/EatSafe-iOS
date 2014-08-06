@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "ViewControllers/InspectionDetailsTableViewController.h"
+#import <FontAwesomeKit/FontAwesomeKit.h>
 
 @interface RestaurantTableViewController ()
 
@@ -44,6 +45,19 @@
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.labelText = @"Loading";
+
+    
+    //set right icon
+    FAKIcon *moreIcon = [FAKIonIcons ios7MoreOutlineIconWithSize:30];
+    [moreIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    
+    UIButton *actionsButtonWithIcon = [UIButton buttonWithType:UIButtonTypeCustom];
+    [actionsButtonWithIcon setFrame:CGRectMake(0, 0, 30, 30)];
+    [actionsButtonWithIcon setAttributedTitle:[moreIcon attributedString] forState:UIControlStateNormal];
+    [actionsButtonWithIcon addTarget:self action:@selector(actionsButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *moreButton = [[UIBarButtonItem alloc] initWithCustomView:actionsButtonWithIcon];
+
+    self.navigationItem.rightBarButtonItem = moreButton;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(dataRetrieved)
@@ -65,38 +79,48 @@
 }
 
 - (void)bindData {
-    self.restaurantName.text = self.restaurant.name;
-    self.address1Label.text = self.restaurant.addressLine1;
-    self.address2Label.text = self.restaurant.addressLine2;
-//    self.phoneLabel.text = self.restaurant.phone;
-    self.failedInspectionsLabel.text = self.restaurant.failedInspectionsString;
-    self.letterGradeLabel.text = self.restaurant.eatSafeRating;
-    
-    self.verdictLabel.text = self.restaurant.verdictString;
-    [self.verdictCell.contentView setBackgroundColor:self.restaurant.ratingColor];
-    
-    self.complaintsLbl.text = [NSString stringWithFormat:@"%d", [self.restaurant.complaints intValue]];
-    
-    [self.yelpRatingImageView setImage:self.restaurant.yelpRatingImage];
-//    self.yelpReviewCountLabel.text = [NSString stringWithFormat:@"(%d)", [self.restaurant.yelpReviewCount intValue]];
+    @try {
+        self.restaurantName.text = self.restaurant.name;
+        self.address1Label.text = self.restaurant.addressLine1;
+        self.address2Label.text = self.restaurant.addressLine2;
+        self.phoneLabel.text = self.restaurant.formattedPhoneNumber;
+        self.failedInspectionsLabel.text = self.restaurant.failedInspectionsString;
+        self.letterGradeLabel.text = self.restaurant.eatSafeRating;
+        
+        self.verdictLabel.text = self.restaurant.verdictString;
+        [self.verdictCell.contentView setBackgroundColor:self.restaurant.ratingColor];
+        
+        self.complaintsLbl.text = [NSString stringWithFormat:@"%d", [self.restaurant.complaints intValue]];
+        @try {
+            [self.yelpRatingImageView setImage:self.restaurant.yelpRatingImage];
+            self.yelpReviewCountLabel.text = [NSString stringWithFormat:@"(%d)", [self.restaurant.yelpReviewCount intValue]];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        
+        UIImage *placeholderImage = [UIImage imageNamed:@"BusinessPlaceholder"];
+        
+        __weak UIImageView *weakImage = self.restaurantLogoImageView;
+        
+        [self.restaurantLogoImageView setImageWithURLRequest:[NSURLRequest requestWithURL:self.restaurant.profilePictureURL]
+                                            placeholderImage:placeholderImage
+                                                     success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                                         
+                                                         weakImage.image = image;
+                                                         [weakImage setNeedsLayout];
+                                                     } failure:nil];
 
-    UIImage *placeholderImage = [UIImage imageNamed:@"BusinessPlaceholder"];
-    
-    __weak UIImageView *weakImage = self.restaurantLogoImageView;
-    
-    [self.restaurantLogoImageView setImageWithURLRequest:[NSURLRequest requestWithURL:self.restaurant.profilePictureURL]
-                                        placeholderImage:placeholderImage
-                                                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                     
-                                                     weakImage.image = image;
-                                                     [weakImage setNeedsLayout];
-                                                 } failure:nil];
+    }
+    @catch (NSException *exception) {
 
+    }
 }
 
 
 
 - (void)dataRetrieved {
+    
     [self bindData];
     //individual inspections table
     inspectionsListDataSource = [[InspectionListDataSourceDelegate alloc] init];
@@ -107,6 +131,9 @@
     [hud hide:YES];
 }
 
+- (BOOL)isYelpInstalled {
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"yelp:"]];
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -135,4 +162,33 @@
 }
 
 
+- (IBAction)actionsButtonTapped {
+    NSMutableArray *buttons = [[NSMutableArray alloc] init];
+    
+    //move button titles to constants
+    if ([self isYelpInstalled]) {
+        [buttons addObject:@"Visit on Yelp"];
+    }
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Cancel"
+                                              destructiveButtonTitle:nil
+                                                    otherButtonTitles:nil];
+    for (NSString *button in buttons) {
+        [actionSheet addButtonWithTitle:button];
+    }
+    //add cancel here so that it's separated and on the bottom
+
+    //if no buttons have been added don't show - maybe even hide icon
+    [actionSheet showFromBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
+    
+}
+#pragma mark - UISheetDelegate Methods
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    //move button titles to constants
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Visit on Yelp"]) {
+        NSString *urlString = [NSString stringWithFormat:@"yelp:///biz/%@", self.restaurant.restaurantId];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    }
+}
 @end
