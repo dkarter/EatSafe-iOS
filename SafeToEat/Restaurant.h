@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSString *distance;
 @property (strong, nonatomic) NSNumber *longitude;
 @property (strong, nonatomic) NSNumber *latitude;
+
 @property (strong, nonatomic) NSNumber *yelpReviewCount;
 @property (strong, nonatomic) NSString *phone;
 @property (nonatomic) BOOL noRecentFails;
@@ -39,6 +40,7 @@
 @property (strong, nonatomic, readonly) UIImage  *yelpRatingImage;
 @property (strong, nonatomic, readonly) NSString *distanceString;
 @property (strong, nonatomic, readonly) NSString *formattedPhoneNumber;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
 //initializers
 - (id)initWithJSONWithId:(NSString *)restaurantId;

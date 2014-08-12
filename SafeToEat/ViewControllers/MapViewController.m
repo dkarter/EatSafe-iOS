@@ -7,6 +7,7 @@
 //
 
 #import "MapViewController.h"
+#import "RestaurantTableViewController.h"
 #import <FontAwesomeKit/FontAwesomeKit.h>
 
 
@@ -22,16 +23,8 @@
     LocationManager *locationManager;
     UIImage *mapMarkerImageRed;
     UIImage *mapMarkerImageGreen;
+    MKUserLocation *userLocation;
 }
-//
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        // Custom initialization
-//    }
-//    return self;
-//}
 
 - (void)viewDidLoad
 {
@@ -53,12 +46,6 @@
     [locationManager startUpdatingLocation];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)didRecieveLocationUpdate:(CLLocation *)location {
     MKCoordinateRegion region;
     region.center.latitude = location.coordinate.latitude;
@@ -66,25 +53,14 @@
     region.span.latitudeDelta = 0.01;
     region.span.longitudeDelta = 0.01;
     [self.restaurantMap setRegion:region animated:NO];
-    MKUserLocation *annot = [[MKUserLocation alloc] init];
-    annot.coordinate = location.coordinate;
-    annot.title = @"Current Location";
-    annot.subtitle = @"This is where you are";
+    userLocation = [[MKUserLocation alloc] init];
+    userLocation.coordinate = location.coordinate;
+    userLocation.title = @"Current Location";
+    userLocation.subtitle = @"This is where you are";
 
-    [self.restaurantMap addAnnotation:annot];
+    [self.restaurantMap addAnnotation:userLocation];
     [locationManager stopUpdatingLocation];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
@@ -102,7 +78,17 @@
     if ([restaurants count] > 0) {
         self.searchResults = restaurants;
         
-        [self.restaurantMap removeAnnotations:self.restaurantMap.annotations];
+        if ([self.restaurantMap.annotations count] > 300) {
+            //still don't want to remove current user location
+            NSMutableArray *annotationsToRemove = [self.restaurantMap.annotations mutableCopy];
+            [annotationsToRemove removeObject:userLocation];
+            [self.restaurantMap removeAnnotations:annotationsToRemove];
+        } else {
+            [self removeAnnotations];
+        }
+
+        
+
         
         for (Restaurant *rest in self.searchResults) {
             RestaurantAnnotation *annot = [[RestaurantAnnotation alloc] initWithRestaurant:rest];
@@ -127,8 +113,14 @@
     
         annotView.enabled = YES;
         annotView.annotation = annotation;
+        
         annotView.canShowCallout = YES;
+        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [rightButton addTarget:self action:@selector(annotationCalloutTapped:) forControlEvents:UIControlEventTouchUpInside];
+        annotView.rightCalloutAccessoryView = rightButton;
+        
         Restaurant *restaurant = ((RestaurantAnnotation *)annotation).restaurant;
+        
         if (restaurant.noRecentFails) {
             annotView.image = [UIImage imageNamed:@"PassAnnotation"];
         } else {
@@ -142,6 +134,29 @@
     return nil;
 }
 
+- (void)annotationCalloutTapped:(UIButton *)sender {
+    RestaurantAnnotation *annot = self.restaurantMap.selectedAnnotations[0];
+    RestaurantTableViewController *rtvc = [self.storyboard instantiateViewControllerWithIdentifier:@"restaurantTableView"];
+    rtvc.restaurant = annot.restaurant;
+    [self.navigationController pushViewController:rtvc animated:YES];
+}
+
+- (void)removeAnnotations {
+    NSArray *annotations = self.restaurantMap.annotations;
+    for (id<MKAnnotation> annot in annotations) {
+        //check if not userlocation
+        if ([annot isKindOfClass:[RestaurantAnnotation class]]) {
+            RestaurantAnnotation *restAnnot = annot;
+            //check if still in view
+            if(!MKMapRectContainsPoint(self.restaurantMap.visibleMapRect, MKMapPointForCoordinate(restAnnot.coordinate)))
+            {
+                //TODO: maybe optimize by passing array instead of single every time
+                //may save the removal process some time cause it doesn't have to refresh the view repeatedly but only once
+                [self.restaurantMap removeAnnotation:annot];
+            }
+        }
+    }
+}
 
 - (int)getRadius
 {

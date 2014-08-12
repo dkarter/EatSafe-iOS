@@ -12,6 +12,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "ViewControllers/InspectionDetailsTableViewController.h"
 #import <FontAwesomeKit/FontAwesomeKit.h>
+#import <MapKit/MapKit.h>
 
 @interface RestaurantTableViewController ()
 
@@ -19,12 +20,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *yelpRatingImageView;
 @property (weak, nonatomic) IBOutlet UILabel *restaurantName;
 @property (weak, nonatomic) IBOutlet UILabel *address1Label;
-@property (weak, nonatomic) IBOutlet UILabel *address2Label;
-@property (weak, nonatomic) IBOutlet UILabel *verdictLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *failedInspectionsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *letterGradeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *complaintsLbl;
-@property (weak, nonatomic) IBOutlet UITableViewCell *verdictCell;
 @property (weak, nonatomic) IBOutlet UITableView *inspectionsTable;
 @property (weak, nonatomic) IBOutlet UILabel *yelpReviewCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
@@ -35,6 +34,7 @@
 @implementation RestaurantTableViewController {
     InspectionListDataSourceDelegate *inspectionsListDataSource;
     MBProgressHUD *hud;
+    Restaurant *restaurantFull;
 }
 
 
@@ -66,10 +66,7 @@
     
     [self bindData];
     
-    self.restaurant = [[Restaurant alloc] initWithJSONWithId:self.restaurant.restaurantId];
-
-    
-
+    restaurantFull = [[Restaurant alloc] initWithJSONWithId:self.restaurant.restaurantId];
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,18 +79,16 @@
     @try {
         self.restaurantName.text = self.restaurant.name;
         self.address1Label.text = self.restaurant.addressLine1;
-        self.address2Label.text = self.restaurant.addressLine2;
-        self.phoneLabel.text = self.restaurant.formattedPhoneNumber;
-        self.failedInspectionsLabel.text = self.restaurant.failedInspectionsString;
-        self.letterGradeLabel.text = self.restaurant.eatSafeRating;
+        self.distanceLabel.text = self.restaurant.distance == nil ? self.distanceLabel.text : self.restaurant.distanceString;
+        self.phoneLabel.text = restaurantFull.formattedPhoneNumber;
+        self.failedInspectionsLabel.text = restaurantFull.failedInspectionsString;
+        self.letterGradeLabel.text = restaurantFull.eatSafeRating;
         
-        self.verdictLabel.text = self.restaurant.verdictString;
-        [self.verdictCell.contentView setBackgroundColor:self.restaurant.ratingColor];
         
-        self.complaintsLbl.text = [NSString stringWithFormat:@"%d", [self.restaurant.complaints intValue]];
+        self.complaintsLbl.text = [NSString stringWithFormat:@"%d", [restaurantFull.complaints intValue]];
         @try {
             [self.yelpRatingImageView setImage:self.restaurant.yelpRatingImage];
-            self.yelpReviewCountLabel.text = [NSString stringWithFormat:@"(%d)", [self.restaurant.yelpReviewCount intValue]];
+            self.yelpReviewCountLabel.text = [NSString stringWithFormat:@"(%d)", [restaurantFull.yelpReviewCount intValue]];
         }
         @catch (NSException *exception) {
             
@@ -113,7 +108,7 @@
 
     }
     @catch (NSException *exception) {
-
+        NSLog(@"%@", exception);
     }
 }
 
@@ -124,7 +119,7 @@
     [self bindData];
     //individual inspections table
     inspectionsListDataSource = [[InspectionListDataSourceDelegate alloc] init];
-    inspectionsListDataSource.inspections = self.restaurant.inspectionList;
+    inspectionsListDataSource.inspections = restaurantFull.inspectionList;
     [self.inspectionsTable setDataSource:inspectionsListDataSource];
     [self.inspectionsTable reloadData];
     
@@ -133,6 +128,30 @@
 
 - (BOOL)isYelpInstalled {
     return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"yelp:"]];
+}
+
+- (BOOL)isGoogleMapsInstalled {
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"comgooglemaps://"]];
+}
+
+- (void)openInAppleMaps {
+    Class mapItemClass = [MKMapItem class];
+    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
+    {
+        // Create an MKMapItem to pass to the Maps app
+        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:self.restaurant.coordinate
+                                                       addressDictionary:nil];
+        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+        [mapItem setName:self.restaurant.name];
+        // Pass the map item to the Maps app
+        [mapItem openInMapsWithLaunchOptions:nil];
+    }
+}
+
+- (void)openUrl:(NSString *)urlString {
+    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
 #pragma mark - UITableViewDataSource
@@ -144,7 +163,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 3;
 }
 
 
@@ -156,7 +175,7 @@
 {
     if ([segue.identifier isEqualToString:@"InspectionDetailSegue"]) {
         InspectionDetailsTableViewController *dest = segue.destinationViewController;
-        HealthInspection *selectedInspection = self.restaurant.inspectionList[[self.inspectionsTable indexPathForSelectedRow].row];
+        HealthInspection *selectedInspection = restaurantFull.inspectionList[[self.inspectionsTable indexPathForSelectedRow].row];
         dest.inspectionData = selectedInspection;
     }
 }
@@ -168,27 +187,60 @@
     //move button titles to constants
     if ([self isYelpInstalled]) {
         [buttons addObject:@"Visit on Yelp"];
+    } else {
+        [buttons addObject:@"Yelp app is not installed"];
     }
+    
+    if ([self isGoogleMapsInstalled]) {
+        [buttons addObject:@"Find on Google Maps"];
+    }
+    
+    [buttons addObject:@"Find on Apple Maps"];
+
+    
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
                                                             delegate:self
-                                                   cancelButtonTitle:@"Cancel"
+                                                   cancelButtonTitle:nil
                                               destructiveButtonTitle:nil
                                                     otherButtonTitles:nil];
+
+    [buttons addObject:@"Cancel"];
+    
     for (NSString *button in buttons) {
         [actionSheet addButtonWithTitle:button];
     }
+    
+
+    
+    [actionSheet setCancelButtonIndex:[buttons count] - 1];
     //add cancel here so that it's separated and on the bottom
 
     //if no buttons have been added don't show - maybe even hide icon
     [actionSheet showFromBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
     
 }
-#pragma mark - UISheetDelegate Methods
+
+#pragma mark - UIActionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    //move button titles to constants
-    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Visit on Yelp"]) {
-        NSString *urlString = [NSString stringWithFormat:@"yelp:///biz/%@", self.restaurant.restaurantId];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    //TODO: move button titles to constants
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:@"Visit on Yelp"]) {
+        
+        NSString *urlString = [NSString stringWithFormat:@"yelp:///search?terms=%@&location=%@",
+                               self.restaurant.restaurantId, self.restaurant.addressLine1];
+        [self openUrl:urlString];
+    } else if ([buttonTitle isEqualToString:@"Find on Apple Maps"]) {
+        [self openInAppleMaps];
+    } else if ([buttonTitle isEqualToString:@"Find on Google Maps"]) {
+        NSString *urlString = [NSString stringWithFormat:@"comgooglemaps://?q=%@ %@&center=%f,%f&zoom=14",
+                               self.restaurant.name,
+                               self.restaurant.addressLine1,
+                               [self.restaurant.latitude floatValue],
+                               [self.restaurant.longitude floatValue]];
+        
+        [self openUrl:urlString];
+
+        
     }
 }
 @end

@@ -12,11 +12,12 @@
 #import "SafeToEatViewController.h"
 #import "SearchViewController.h"
 #import <Reachability/Reachability.h>
-
+#import <FontAwesomeKit/FontAwesomeKit.h>
 
 @interface SafeToEatViewController ()
 
 - (IBAction)searchButtonClicked:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIButton *aboutButton;
 
 @end
 
@@ -27,7 +28,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    FAKIcon *aboutIcon = [FAKIonIcons ios7HelpOutlineIconWithSize:30];
+    [aboutIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    [self.aboutButton setAttributedTitle:[aboutIcon attributedString]
+                                forState:UIControlStateNormal];
     
 }
 
@@ -47,8 +51,10 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    SearchViewController *svc = (SearchViewController *)segue.destinationViewController;
-    svc.inSearchMode = [segue.identifier isEqualToString:@"SearchSegue"];
+    if ([segue.identifier isEqualToString:@"SearchSegue"]) {
+        SearchViewController *svc = (SearchViewController *)segue.destinationViewController;
+        svc.inSearchMode = [segue.identifier isEqualToString:@"SearchSegue"];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -21,6 +21,7 @@
 		B7C3CCFD196E13C600126C4C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CCFC196E13C600126C4C /* LocationManager.m */; };
 		B7C3CD611973521A00126C4C /* StringHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C3CD601973521A00126C4C /* StringHelpers.m */; };
 		B7C3CD6319737FC200126C4C /* default (1).gpx in Resources */ = {isa = PBXBuildFile; fileRef = B7C3CD6219737FC200126C4C /* default (1).gpx */; };
+		B7D4DD991991F864009E1AF6 /* AboutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D4DD981991F864009E1AF6 /* AboutTableViewController.m */; };
 		B7E020C118C506260016C912 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C018C506260016C912 /* Foundation.framework */; };
 		B7E020C318C506260016C912 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C218C506260016C912 /* CoreGraphics.framework */; };
 		B7E020C518C506260016C912 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E020C418C506260016C912 /* UIKit.framework */; };
@@ -78,6 +79,8 @@
 		B7C3CD5F1973521A00126C4C /* StringHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringHelpers.h; path = Helpers/StringHelpers.h; sourceTree = "<group>"; };
 		B7C3CD601973521A00126C4C /* StringHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringHelpers.m; path = Helpers/StringHelpers.m; sourceTree = "<group>"; };
 		B7C3CD6219737FC200126C4C /* default (1).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "default (1).gpx"; sourceTree = "<group>"; };
+		B7D4DD971991F864009E1AF6 /* AboutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutTableViewController.h; path = ViewControllers/AboutTableViewController.h; sourceTree = "<group>"; };
+		B7D4DD981991F864009E1AF6 /* AboutTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutTableViewController.m; path = ViewControllers/AboutTableViewController.m; sourceTree = "<group>"; };
 		B7E020BD18C506260016C912 /* EatSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E020C018C506260016C912 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B7E020C218C506260016C912 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -168,6 +171,8 @@
 				B729F5DE197CA62E007E1248 /* NoInternetViewController.m */,
 				B75D7DF9198608210042EDA2 /* MapViewController.h */,
 				B75D7DFA198608210042EDA2 /* MapViewController.m */,
+				B7D4DD971991F864009E1AF6 /* AboutTableViewController.h */,
+				B7D4DD981991F864009E1AF6 /* AboutTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 				B7C3CCE9195F716C00126C4C /* SearchViewController.m in Sources */,
 				B71A976E1978FF8200FAC497 /* InspectionDetailsTableViewController.m in Sources */,
 				B71A976519775F6E00FAC497 /* InspectionListDataSourceDelegate.m in Sources */,
+				B7D4DD991991F864009E1AF6 /* AboutTableViewController.m in Sources */,
 				B75D7DFB198608210042EDA2 /* MapViewController.m in Sources */,
 				B7E020D718C506260016C912 /* SafeToEatViewController.m in Sources */,
 				B75D7DFE198618A70042EDA2 /* RestaurantAnnotation.m in Sources */,

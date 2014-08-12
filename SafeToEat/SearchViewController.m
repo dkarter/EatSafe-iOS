@@ -25,6 +25,9 @@
 
 @implementation SearchViewController {
     MBProgressHUD *hud;
+    FAKIcon *passIcon;
+    FAKIcon *failIcon;
+
 }
 
 bool useLocation = YES;
@@ -41,17 +44,22 @@ bool useLocation = YES;
     //setup search bar
     if (self.inSearchMode) {
         [self.searchBar becomeFirstResponder];
-    } else {
-        self.locationManager = [[LocationManager alloc] initWithDelegate:self];
-        [self.locationManager startUpdatingLocation];
-
     }
     
-    FAKIcon *mapIcon = [FAKIonIcons mapIconWithSize:25];
+    
+    self.locationManager = [[LocationManager alloc] initWithDelegate:self];
+    [self.locationManager startUpdatingLocation];
+
+    passIcon = [FAKFontAwesome checkIconWithSize:40];
+    failIcon = [FAKFontAwesome timesIconWithSize:40];
+
+    
+//    FAKIcon *mapIcon = [FAKIonIcons mapIconWithSize:25];
+    FAKIcon *mapIcon = [FAKIonIcons ios7LocationOutlineIconWithSize:25];
     self.mapButton.title = @"";
     self.mapButton.image = [mapIcon imageWithSize:CGSizeMake(25, 25)];
 
-    
+    // make cancel button on search appear white
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil]
           setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}
           forState:UIControlStateNormal];
@@ -116,11 +124,9 @@ bool useLocation = YES;
         distanceLabel.text = currentRestaurant.distanceString;
         
         if (currentRestaurant.noRecentFails) {
-            FAKIcon *checkMarkIcon = [FAKIonIcons checkmarkCircledIconWithSize:30];
-            ratingLabel.attributedText = [checkMarkIcon attributedString];
+            ratingLabel.attributedText = [passIcon attributedString];
         } else {
-            FAKIcon *checkMarkIcon = [FAKIonIcons closeCircledIconWithSize:30];
-            ratingLabel.attributedText = [checkMarkIcon attributedString];
+            ratingLabel.attributedText = [failIcon attributedString];
         }
 
         
@@ -196,32 +202,40 @@ bool useLocation = YES;
 }
 
 -(void)didRecieveRestaurantList:(NSArray *)restaurants {
-    self.searchResults = restaurants;
-    [self.searchResultsTableView reloadData];
-    if (hud != nil) {
-        [hud hide:YES];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (hud != nil) {
+            [hud hide:YES];
+            hud = nil;
+        }
+        
+        self.searchResults = restaurants;
+        [self.searchResultsTableView reloadData];
+    });
+
 }
 
 - (void)didRecieveLocationUpdate:(CLLocation *)location {
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
+    BOOL isAroundMeMode = [self.searchBar.text isEqualToString:@""];
     
-    if ([self.searchBar.text isEqualToString:@""]) {
-        hud.labelText = @"Loading";
-        //[self getRestaurantsByCoordinate:location.coordinate];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (hud == nil) {
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeIndeterminate;
+            hud.labelText = isAroundMeMode ? @"Loading" : @"Searching";
+        }
+    });
+    
+    if (isAroundMeMode) {
         [Restaurant getRestaurantsByCoordinate:location.coordinate
                                     completion:^(NSArray *restaurants) {
                                         [self didRecieveRestaurantList:restaurants];
                                     }];
 
     } else {
-        hud.labelText = @"Searching";
-        //[self searchRestaurantsByString:self.searchBar.text coordinate:location.coordinate];
         [Restaurant searchRestaurantsByString:self.searchBar.text
                                    coordinate:location.coordinate
                                    completion:^(NSArray *restaurants) {
-                                       [self didRecieveRestaurantList:restaurants];
+                                        [self didRecieveRestaurantList:restaurants];
                                    }];
     }
     

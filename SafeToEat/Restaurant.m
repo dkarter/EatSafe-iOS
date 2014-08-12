@@ -32,7 +32,7 @@
                            max];
     
     urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
+    NSLog(@"%@", urlString);
     
     NSURL *url = [NSURL URLWithString:urlString];
 
@@ -51,12 +51,6 @@
         completion([NSArray arrayWithArray:tempArray]);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error cannot access server at this time."
-                                                            message:[error localizedDescription]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-        [alertView show];
         completion(@[]);
     }];
     
@@ -97,12 +91,12 @@
         completion([NSArray arrayWithArray:tempArray]);
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error cannot access server at this time."
-                                                            message:[error localizedDescription]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-        [alertView show];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error cannot access server at this time."
+//                                                            message:[error localizedDescription]
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"Ok"
+//                                                  otherButtonTitles:nil];
+//        [alertView show];
         completion(@[]);
     }];
     
@@ -164,7 +158,6 @@
         self.latitude           = JSON[@"lat"];
         self.restaurantId       = JSON[@"id"];
         self.addressLine1       = JSON[@"address"];
-        //self.addressLine2       = JSON[@"address2"];
         self.eatSafeRating      = JSON[@"rating"];
         self.isNew              = [JSON[@"new"] boolValue]; // not really using this one
         self.noRecentFails      = [JSON[@"no_recent_fails"] boolValue];
@@ -230,7 +223,7 @@
 }
 
 - (NSString *)formattedPhoneNumber {
-    if ([self.phone rangeOfString:@"-"].location == NSNotFound) {
+    if (self.phone != nil && [self.phone rangeOfString:@"-"].location == NSNotFound) {
         @try {
             NSString *areaCode = [self.phone substringWithRange:NSMakeRange(0, 3)];
             NSString *part1 = [self.phone substringWithRange:NSMakeRange(3, 3)];
@@ -243,6 +236,10 @@
     } else {
         return self.phone;
     }
+}
+
+- (CLLocationCoordinate2D)coordinate {
+    return CLLocationCoordinate2DMake([self.latitude floatValue], [self.longitude floatValue]);
 }
 
 @end
