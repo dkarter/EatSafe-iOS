@@ -42,6 +42,7 @@
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSONArray) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (NSDictionary *JSON in JSONArray) {
             Restaurant *tempRestaurant = [[Restaurant alloc] initWithJSONObject:JSON];
@@ -51,9 +52,11 @@
         completion([NSArray arrayWithArray:tempArray]);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         completion(@[]);
     }];
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [operation start];
 
 }
@@ -82,6 +85,7 @@
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSONArray) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (NSDictionary *JSON in JSONArray) {
             Restaurant *tempRestaurant = [[Restaurant alloc] initWithJSONObject:JSON];
@@ -91,15 +95,11 @@
         completion([NSArray arrayWithArray:tempArray]);
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error cannot access server at this time."
-//                                                            message:[error localizedDescription]
-//                                                           delegate:nil
-//                                                  cancelButtonTitle:@"Ok"
-//                                                  otherButtonTitles:nil];
-//        [alertView show];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         completion(@[]);
     }];
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [operation start];
 }
 
@@ -125,7 +125,7 @@
         operation.responseSerializer = [AFJSONResponseSerializer serializer];
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
-            
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             [self fillFromJSON:JSON];
             
             [[NSNotificationCenter defaultCenter]
@@ -133,9 +133,11 @@
                               object:nil];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             NSLog(@"Cannot retrieve restaurant: %@", error.localizedDescription);
         }];
         
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [operation start];
     }
     

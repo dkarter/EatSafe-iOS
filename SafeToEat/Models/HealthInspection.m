@@ -27,7 +27,7 @@
         operation.responseSerializer = [AFJSONResponseSerializer serializer];
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
-            
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             [self fillFromJSON:JSON];
             
             [[NSNotificationCenter defaultCenter]
@@ -35,9 +35,11 @@
              object:nil];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             NSLog(@"Cannot retrieve inspection: %@", error.localizedDescription);
         }];
         
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [operation start];
     }
     
