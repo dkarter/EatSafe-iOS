@@ -21,9 +21,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *restaurantName;
 @property (weak, nonatomic) IBOutlet UILabel *address1Label;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *failedInspectionsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *letterGradeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *complaintsLbl;
 @property (weak, nonatomic) IBOutlet UITableView *inspectionsTable;
 @property (weak, nonatomic) IBOutlet UILabel *yelpReviewCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
@@ -81,11 +78,7 @@
         self.address1Label.text = self.restaurant.addressLine1;
         self.distanceLabel.text = self.restaurant.distance == nil ? self.distanceLabel.text : self.restaurant.distanceString;
         self.phoneLabel.text = restaurantFull.formattedPhoneNumber;
-        self.failedInspectionsLabel.text = restaurantFull.failedInspectionsString;
-        self.letterGradeLabel.text = restaurantFull.eatSafeRating;
         
-        
-        self.complaintsLbl.text = [NSString stringWithFormat:@"%d", [restaurantFull.complaints intValue]];
         @try {
             [self.yelpRatingImageView setImage:self.restaurant.yelpRatingImage];
             self.yelpReviewCountLabel.text = [NSString stringWithFormat:@"(%d)", [restaurantFull.yelpReviewCount intValue]];
@@ -163,7 +156,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 2;
 }
 
 
